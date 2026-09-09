@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap">
+    <link rel="stylesheet" href="theme2.css">
+
+    <link rel="stylesheet" href="global-reminders.css">
+</head>
+<body>
+    <div class="pomoapp-window">
+         <div class="top-buttons">
+        <button id="work">WORK</button>
+        <button id="break">BREAK</button>
+    </div>
+    <button id="homeBtn" class="home-btn">
+    <img src="assets/homebtn.png" alt="Home">
+</button>
+        <img src="theme2/wink.gif" alt="Cat" class="cat-gif" id="catGif">
+        <div class="timer">25:00</div>
+        <div class="buttons">
+            <button id="start">START</button>
+            <button id="reset">RESET</button>
+        </div>
+    </div>
+
+    <script src="global-reminders.js"></script>
+</body>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const homeBtn = document.getElementById('homeBtn');
+    if (homeBtn) {
+        homeBtn.addEventListener('click', function() {
+            // Navigate to home page
+            window.location.href = 'theme2index.html'; // Change to your actual home page filename
+        });
+    }
+});
+  const timerDisplay = document.querySelector('.timer');
+const startBtn = document.getElementById('start');
+const resetBtn = document.getElementById('reset');
+const workBtn = document.getElementById('work');   // ✅ ADD THIS
+const breakBtn = document.getElementById('break');
+const catGif = document.getElementById('catGif');
+
+let time = 25 * 60; // default = WORK
+let interval = null;
+let mode = "work"; // "work" or "break"
+
+function updateTimer() {
+    const minutes = Math.floor(time / 60);
+    const seconds = time % 60;
+    timerDisplay.textContent =
+        `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+}
+
+function startTimer() {
+    if (interval) return;
+
+    // GIF based on mode
+    catGif.src = mode === "work"
+        ? "theme2/work.gif"
+        : "theme2/wink.gif";
+
+    interval = setInterval(() => {
+        if (time <= 0) {
+            clearInterval(interval);
+            interval = null;
+
+            alert(mode === "work" ? "Work Finished!" : "Break Finished!");
+            catGif.src = "theme2/work.gif";
+            return;
+        }
+
+        time--;
+        updateTimer();
+    }, 1000);
+}
+
+function resetTimer() {
+    clearInterval(interval);
+    interval = null;
+
+    mode = "work";
+    time = 25 * 60;
+    updateTimer();
+    catGif.src = "theme2/work.gif";
+}
+
+// ✅ WORK MODE (25 min)
+function setWork() {
+    clearInterval(interval);
+    interval = null;
+
+    mode = "work";
+    time = 25 * 60;
+    updateTimer();
+    catGif.src = "theme2/work.gif";
+}
+
+// ✅ BREAK MODE (5 min)
+function setBreak() {
+    clearInterval(interval);
+    interval = null;
+
+    mode = "break";
+    time = 5 * 60;
+    updateTimer();
+    catGif.src = "theme2/wink.gif";
+}
+
+// ✅ EVENT LISTENERS
+startBtn.addEventListener('click', startTimer);
+resetBtn.addEventListener('click', resetTimer);
+workBtn.addEventListener('click', setWork);   // ✅ IMPORTANT
+breakBtn.addEventListener('click', setBreak);
+
+updateTimer();
+
+
+</script>
+</html>

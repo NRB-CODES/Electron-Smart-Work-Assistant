@@ -1,0 +1,526 @@
+.app-window {
+    width: 300px;
+    height: 300px;
+    background: url("assets/background.png") center/cover no-repeat;
+    border-radius: 18px;
+    box-shadow: 0 0 25px rgba(0,0,0,0.6);
+
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding: 10px;
+}
+
+/* TOP CONTENT */
+/* TOP CONTENT */
+.content-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+      /* 🔥 NOT center */
+    padding-top: 20px;             /* control top spacing */
+}
+.assistant-text {
+    font-size: 13px;
+    color: white;
+    font-family: "Press Start 2P", monospace;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+/* BIG GIF */
+.center-gif {
+    height: 120px;
+    object-fit: contain;
+}
+.input-wrapper {
+    margin-top: 4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* round mic button */
+.mic-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: none;
+    background: #f5efef;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.mic-btn:hover {
+    background: #e0d4d4;
+}
+.mic-btn img {
+    width: 14px;
+    height: 14px;
+}
+.command-input {
+    margin-top: 4px;       /* right after gif */
+    width: 70%;
+    padding: 8px 12px;
+    border-radius: 12px;
+    border: none;
+    outline: none;
+    font-size: 10px;
+    font-family: "Press Start 2P", monospace;
+    background: #f5efef;
+    color: #5a4b7a;
+}
+.bottom-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 6px 8px;
+
+    /* background: rgba(0, 0, 0, 0.6); */
+
+    /* border-top: 1px solid rgba(44, 5, 46, 0.2); */
+}
+
+/* image button */
+.icon-btn {
+    width: 36px;
+    height: 36px;
+    border: none;
+    background: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+.icon-btn img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.icon-btn:hover {
+    transform: scale(1.1);
+}
+
+.icon-btn:active {
+    transform: scale(0.95);
+}
+/* Now Comes the Pomodoro Timer Styles */
+.pomoapp-window {
+    width: 300px;
+    height: 300px;
+    background: url("assets/planback.png") center/cover no-repeat;
+    border-radius: 18px;
+    box-shadow: 0 0 25px rgba(0,0,0,0.6);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    position: relative;   /* ⭐ IMPORTANT */
+
+    padding: 10px;
+    gap: 15px;
+}
+
+.cat-gif {
+    width: 180px; /* adjust as needed */
+    height: 180px; /* adjust as needed */
+    object-fit: contain;
+}
+
+.timer {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 27px;
+    text-align: center;
+    font-weight: bolder;
+    color: #619170;
+}
+
+.buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.buttons button {
+    font-family: 'Press Start 2P', cursive;
+    padding: 9px 14px;
+
+    border: none;
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    background-color: #99b1a1;
+    color: #f7e8d5;
+
+    transition: all 0.25s ease;
+}
+
+.buttons button:hover {
+    background-color: #619170;
+    transform: scale(1.08);
+}
+
+.buttons button:active {
+    transform: scale(0.95);
+}
+.top-buttons {
+    position: absolute;
+    top: 8px;   /* thoda uper */
+    left: 50%;
+    transform: translateX(-50%);
+
+    display: flex;
+    gap: 8px;
+}
+.top-buttons button {
+    font-family: 'Press Start 2P', cursive;
+    padding: 7px 11px;
+
+    border: none;
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    background-color: #99b1a1;
+    color: #f7e8d5;
+
+    font-size: 9px;
+
+    transition: all 0.25s ease;
+}
+
+.top-buttons button:hover {
+    background-color: #619170;
+    transform: scale(1.08);
+}
+
+.top-buttons button:active {
+    transform: scale(0.95);
+}
+
+.top-buttons button.active {
+    background-color: #619170;
+    color: white;
+}
+.home-btn {
+    position: absolute;
+
+    top: 8px;   /* yaha change karo */
+    left: 10px;
+
+    width: 24px;
+    height: 24px;
+
+    border-radius: 50%;
+    border: none;
+
+    background: #99b1a1;
+    color: white;
+
+    font-family: 'Press Start 2P', cursive;
+    font-size: 10px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+    text-decoration: none;
+
+    transition: all 0.25s ease;
+}
+
+.home-btn:hover {
+    background: #619170;
+    transform: scale(1.1);
+}
+
+.home-btn:active {
+    transform: scale(0.95);
+}
+
+.home-btn:hover {
+    background: linear-gradient(135deg, #c8e6d2, #f5c6d6);
+    transform: scale(1.12) rotate(-3deg);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+}
+.home-btn:active {
+    transform: scale(0.95);
+}
+/* // Weather App Window */
+/* WEATHER APP WINDOW */
+.weather-app-window {
+ width: 300px;
+    height: 300px;
+    background: url("assets/planback.png") center/cover no-repeat;
+    border-radius: 20px;
+    box-shadow: 0 0 25px rgba(0,0,0,0.6);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* centers content horizontally */
+    justify-content: center; /* centers content vertically */
+    position: relative;
+    padding: 10px;
+    gap: 15px; /* space between GIF, timer, buttons */
+}
+
+/* CENTER IMAGE */
+.main-image {
+    width: 160px;
+    margin-top: 10px;
+}
+
+/* SEARCH BAR */
+.search-box {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: center;
+}
+
+.search-box input {
+    width: 75%;
+    padding: 8px 10px;
+    
+    border-radius: 12px 0 0 12px;
+    border: none;
+    outline: none;
+
+    font-family: "Press Start 2P", monospace;
+    font-size: 8px;
+    background: #f5efef;
+    color: #5a4b7a;
+}
+
+.search-box button {
+    width: 32px;      /* thoda chota */
+    height: 24px;     /* input field ke mutabiq */
+
+    border-radius: 0 10px 10px 0;
+    border: none;
+
+    cursor: pointer;
+    background: #99b1a1;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+/* SLIDER CONTAINER */
+/* SLIDER CONTAINER */
+.slider-container {
+  width: 260px;
+  overflow: hidden;
+}
+
+/* SLIDER */
+.slider {
+  display: flex;
+  gap: 10px;
+}
+
+/* IMAGE BUTTON */
+.city {
+  min-width: 80px;
+  height: 45px;
+  border: none;
+  border-radius: 14px;
+  background: #ffe3e3;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.city img {
+  width: 44px;
+  height: 44px;
+  image-rendering: pixelated;
+}
+
+.city:hover {
+  transform: scale(1.05);
+}
+
+.weather-box {
+  background: #6c65a8;
+  padding: 20px;
+  border-radius: 15px;
+  text-align: center;
+  width: 320px;
+}
+
+.weather-box img {
+  width: 120px;
+  margin: 15px 0;
+}
+.weather-box {
+  width: 420px;
+  height: 260px;
+  padding: 20px;
+  position: relative;
+
+  /* Pixel card background */
+  background: linear-gradient(
+    to bottom,
+    #6f6aa8 68%,
+    #f3c1d2 68%
+  );
+
+  border-radius: 20px;
+  box-shadow: 0 8px 0 #4c487a;
+  color: white;
+  overflow: hidden;
+}
+
+/* =========================
+   CITY NAME
+========================= */
+#cityName {
+  font-size: 12px;
+  margin: 0;
+}
+
+/* =========================
+   WEATHER GIF (FLOAT RIGHT)
+========================= */
+#weatherGif {
+  width: 120px;
+  position: absolute;
+  top: 20px;
+  /* right: 20px; */
+  image-rendering: pixelated;
+}
+
+/* =========================
+   TEMPERATURE (BIG)
+========================= */
+#temp {
+  position: absolute;
+  bottom: 70px;
+  left: 20px;
+  font-size: 26px;
+  margin: 0;
+}
+
+/* =========================
+   CONDITION TEXT
+========================= */
+#condition {
+  position: absolute;
+  bottom: 45px;
+  left: 20px;
+  font-size: 10px;
+  opacity: 0.85;
+}
+
+/* =========================
+   BACK BUTTON (OVERRIDE INLINE)
+========================= */
+.weather-box button {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  background: #99b1a1 !important;
+  border: none !important;
+  padding: 8px 14px !important;
+  border-radius: 10px;
+  font-size: 8px !important;
+  cursor: pointer;
+  font-family: 'Press Start 2P', monospace !important;
+}
+
+/* =========================
+   FORECAST BUBBLE (EXTRA UI)
+========================= */
+.weather-box::after {
+  /* content: "Mon: 25°C Sunny\A Tue: 20°C Rain\A Wed: 22°C Wind"; */
+  white-space: pre;
+  position: absolute;
+  top: 18px;
+  right: 18px;
+
+  background: rgba(0, 0, 0, 0.45);
+  padding: 8px;
+  font-size: 8px;
+  border-radius: 8px;
+}
+
+/* =========================
+   PIXEL STARS DECORATION
+========================= */
+.weather-box::before {
+  content: "✦ ✦ ✦ ✦ ✦";
+  position: absolute;
+  top: 8px;
+  left: 20px;
+  font-size: 10px;
+  opacity: 0.4;
+}
+/* //to do list app window */
+
+/* SEARCH BUTTON */
+
+.search-btn{
+    width: 32px;
+    height: 32px;
+
+    border-radius: 50%;
+    border: none;
+
+    background: #d9d2ff;   /* soft purple */
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+/* icon */
+
+.search-btn img{
+    width: 14px;
+    height: 14px;
+}
+
+/* hover */
+
+.search-btn:hover{
+    background: #b9a9ff;
+    transform: scale(1.1);
+}
+
+/* click */
+
+.search-btn:active{
+    transform: scale(0.9);
+}
+
+
+.chat-box {
+    width: 90%;
+    max-height: 200px;
+    overflow-y: auto;
+    margin: 10px auto;
+    padding: 10px;
+    background: rgba(0,0,0,0.6);
+    color: white;
+    border-radius: 12px;
+    font-size: 14px;
+}
+
+.chat-message {
+    margin-bottom: 8px;
+}

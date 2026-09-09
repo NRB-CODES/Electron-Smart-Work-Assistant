@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MelodyWave - Playlist</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="player.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="playlist-container">
+            <div class="menu-header">
+                <button class="back-btn" onclick="window.location.href='music.html'">
+                    ← Back
+                </button>
+                <h2>🎵 Music Library</h2>
+                <button class="add-music-btn" id="add-music-btn">
+                    ＋ Add Music
+                </button>
+                <input type="file" id="file-input" class="file-input" accept="audio/*" multiple>
+            </div>
+
+            <div class="music-list" id="music-list">
+                <!-- Music tracks will be loaded here -->
+            </div>
+
+            <div class="footer">
+                <p>Drag and drop music files or click "Add Music"<br>
+                    Click on tracks to play • Total storage used: <span id="storage-used">0 KB</span></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class PlaylistManager {
+            constructor() {
+                // Check if player exists in parent window or create new
+                if (window.opener && window.opener.musicPlayer) {
+                    this.musicPlayer = window.opener.musicPlayer;
+                } else {
+                    // Try to get from localStorage first
+                    try {
+                        const saved = localStorage.getItem('musicPlayerLibrary');
+                        if (saved) {
+                            const library = JSON.parse(saved);
+                            // Create a new player instance with saved library
+                            this.musicPlayer = new MusicPlayer();
+                            this.musicPlayer.musicLibrary = library;
+                        } else {
+                            this.musicPlayer = new MusicPlayer();
+                        }
+                    } catch (e) {
+                        this.musicPlayer = new MusicPlayer();
+                    }
+                }
+
+                // Make it globally available
+                window.musicPlayer = this.musicPlayer;
+
+                this.musicList = document.getElementById('music-list');
+                this.fileInput = document.getElementById('file-input');
+                this.addMusicBtn = document.getElementById('add-music-btn');
+                this.storageUsed = document.getElementById('storage-used');
+
+                this.init();
+            }
+
+            init() {
+                this.renderPlaylist();
+                this.setupEventListeners();
+                this.updateStorageUsage();
+            }
+
+            renderPlaylist() {
+                this.musicList.innerHTML = '';
+
+                if (!this.musicPlayer.musicLibrary || this.musicPlayer.musicLibrary.length === 0) {
+                    this.musicList.innerHTML = `
+                        <div class="empty-state">
+                            <p>No music in library</p>
+                            <p>Add music using the button above</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                this.musicPlayer.musicLibrary.forEach((track, index) => {
+                    const trackItem = document.createElement('div');
+                    trackItem.className = `track-item ${index === this.musicPlayer.currentTrackIndex ? 'active' : ''} ${track.colorClass || 'color-1'}`;
+
+                    trackItem.innerHTML = `
+                        <img src="${track.albumArt || 'musicimages/default.jpg'}" alt="${track.album || 'Album'}">
+                        <div class="track-details">
+                            <h4>${track.title || 'Unknown Track'}</h4>
+                            <p>${track.artist || 'Unknown Artist'} • ${track.album || 'Unknown Album'}</p>
+                        </div>
+                        <div class="track-duration">${track.duration || '0:00'}</div>
+                        <button class="delete-btn" data-index="${index}">✕</button>
+                    `;
+
+                    // Click to play
+                    trackItem.addEventListener('click', (e) => {
+                        if (!e.target.classList.contains('delete-btn')) {
+                            this.playTrack(index);
+                        }
+                    });
+
+                    // Delete button
+                    const deleteBtn = trackItem.querySelector('.delete-btn');
+                    deleteBtn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        this.deleteTrack(index);
+                    });
+
+                    this.musicList.appendChild(trackItem);
+                });
+            }
+
+            setupEventListeners() {
+                // Add music button
+                this.addMusicBtn.addEventListener('click', () => {
+                    this.fileInput.click();
+                });
+
+                // File input change
+                this.fileInput.addEventListener('change', (e) => {
+                    this.handleFiles(e.target.files);
+                    this.fileInput.value = '';
+                });
+
+                // Drag and drop
+                document.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                });
+
+                document.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    const files = e.dataTransfer.files;
+                    this.handleFiles(files);
+                });
+            }
+
+            handleFiles(files) {
+                let addedCount = 0;
+
+                for (const file of files) {
+                    if (file.type.startsWith('audio/')) {
+                        const fileName = file.name.replace(/\.[^/.]+$/, "");
+                        const newTrack = this.musicPlayer.addTrack(file, fileName);
+
+                        if (newTrack) {
+                            addedCount++;
+                        }
+                    }
+                }
+
+                if (addedCount > 0) {
+                    this.renderPlaylist();
+                    this.updateStorageUsage();
+
+                    // Update main player if it exists
+                    if (window.opener && window.opener.musicPlayer) {
+                        window.opener.musicPlayer.musicLibrary = this.musicPlayer.musicLibrary;
+                        window.opener.musicPlayer.saveToStorage();
+                    }
+
+                    alert(`Added ${addedCount} track(s) successfully!`);
+                }
+            }
+
+            playTrack(index) {
+                this.musicPlayer.currentTrackIndex = index;
+
+                // Update local storage
+                localStorage.setItem('currentTrackIndex', index);
+                this.musicPlayer.saveToStorage();
+
+                // If main player window is open, update it
+                if (window.opener) {
+                    try {
+                        window.opener.musicPlayer.currentTrackIndex = index;
+                        window.opener.musicPlayer.loadTrack(index);
+                        window.opener.musicPlayer.play();
+
+                        // Focus the main player window
+                        window.opener.focus();
+                    } catch (e) {
+                        console.log('Could not communicate with main player');
+                    }
+                }
+
+                // Update UI
+                this.renderPlaylist();
+
+                // Close playlist window after 500ms
+                setTimeout(() => {
+                    window.close();
+                }, 500);
+            }
+
+            deleteTrack(index) {
+                if (confirm('Delete this track from library?')) {
+                    const success = this.musicPlayer.deleteTrack(index);
+
+                    if (success) {
+                        this.renderPlaylist();
+                        this.updateStorageUsage();
+
+                        // Update main player if open
+                        if (window.opener && window.opener.musicPlayer) {
+                            window.opener.musicPlayer.musicLibrary = this.musicPlayer.musicLibrary;
+                            window.opener.musicPlayer.saveToStorage();
+                            window.opener.musicPlayer.loadTrack(window.opener.musicPlayer.currentTrackIndex);
+                        }
+                    }
+                }
+            }
+
+            updateStorageUsage() {
+                try {
+                    const data = JSON.stringify(this.musicPlayer.musicLibrary);
+                    const bytes = new TextEncoder().encode(data).length;
+                    const kb = Math.round(bytes / 1024);
+                    this.storageUsed.textContent = `${kb} KB`;
+                } catch (error) {
+                    this.storageUsed.textContent = '0 KB';
+                }
+            }
+        }
+
+        // Initialize playlist manager
+        document.addEventListener('DOMContentLoaded', () => {
+            window.playlistManager = new PlaylistManager();
+        });
+    </script>
+
+    <script src="player.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap">
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="stylesheet" href="global-reminders.css">
+</head>
+
+<body>
+    <div class="pomoapp-window">
+        <div class="top-buttons">
+            <button id="work">WORK</button>
+            <button id="break">BREAK</button>
+        </div>
+        <a href="index.html" class="home-btn">H</a>
+        <img src="assets/sleepinggif.gif" alt="Cat" class="cat-gif" id="catGif">
+        <div class="timer">25:00</div>
+        <div class="buttons">
+            <button id="start">START</button>
+            <button id="reset">RESET</button>
+        </div>
+    </div>
+
+    <script src="global-reminders.js"></script>
+</body>
+<script>
+    const timerDisplay = document.querySelector('.timer');
+    const startBtn = document.getElementById('start');
+    const resetBtn = document.getElementById('reset');
+    const workBtn = document.getElementById('work');   // ✅ ADD THIS
+    const breakBtn = document.getElementById('break');
+    const catGif = document.getElementById('catGif');
+
+    let time = 25 * 60; // default = WORK
+    let interval = null;
+    let mode = "work"; // "work" or "break"
+
+    function updateTimer() {
+        const minutes = Math.floor(time / 60);
+        const seconds = time % 60;
+        timerDisplay.textContent =
+            `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    }
+
+    function startTimer() {
+        if (interval) return;
+
+        // GIF based on mode
+        catGif.src = mode === "work"
+            ? "assets/working.gif"
+            : "assets/sleepinggif.gif";
+
+        interval = setInterval(() => {
+            if (time <= 0) {
+                clearInterval(interval);
+                interval = null;
+
+                alert(mode === "work" ? "Work Finished!" : "Break Finished!");
+                catGif.src = "assets/sleepinggif.gif";
+                return;
+            }
+
+            time--;
+            updateTimer();
+        }, 1000);
+    }
+
+    function resetTimer() {
+        clearInterval(interval);
+        interval = null;
+
+        mode = "work";
+        time = 25 * 60;
+        updateTimer();
+        catGif.src = "assets/sleepinggif.gif";
+    }
+
+    // ✅ WORK MODE (25 min)
+    function setWork() {
+        clearInterval(interval);
+        interval = null;
+
+        mode = "work";
+        time = 25 * 60;
+        updateTimer();
+        catGif.src = "assets/sleepinggif.gif";
+    }
+
+    // ✅ BREAK MODE (5 min)
+    function setBreak() {
+        clearInterval(interval);
+        interval = null;
+
+        mode = "break";
+        time = 5 * 60;
+        updateTimer();
+        catGif.src = "assets/sleepinggif.gif";
+    }
+
+    // ✅ EVENT LISTENERS
+    startBtn.addEventListener('click', startTimer);
+    resetBtn.addEventListener('click', resetTimer);
+    workBtn.addEventListener('click', setWork);   // ✅ IMPORTANT
+    breakBtn.addEventListener('click', setBreak);
+
+    updateTimer();
+
+    // Function to stop/pause timer
+    function stopTimer() {
+        if (interval) {
+            clearInterval(interval);
+            interval = null;
+            catGif.src = "assets/sleepinggif.gif";
+        }
+    }
+
+    // Voice Assistant Commands via URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const action = urlParams.get('action');
+    if (action === 'start') {
+        setTimeout(startTimer, 500);
+    } else if (action === 'stop' || action === 'pause') {
+        // If it's already sleeping do nothing, else just ensure it's not running
+        setTimeout(stopTimer, 500);
+    } else if (action === 'reset') {
+        setTimeout(resetTimer, 500);
+    }
+
+</script>
+
+</html>

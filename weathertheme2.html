@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Weather App</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="theme2.css">
+    <link rel="stylesheet" href="global-reminders.css">
+</head>
+
+<body>
+
+<div class="weather-app-window">
+
+  <!-- CENTER IMAGE -->
+  <img src="theme2/world.png" class="main-image" alt="Center Image">
+
+  <!-- SEARCH -->
+  <div class="search-box">
+    <input 
+      type="text" 
+      id="cityInput" 
+      placeholder="Search for a city...">
+    <button onclick="searchWeather()">🔍</button>
+    <button id="homeBtn" class="home-btn">
+    <img src="assets/homebtn.png" alt="Home">
+</button>
+  </div>
+
+  <!-- CITY SLIDER -->
+  <div class="slider-container">
+    <div class="slider" id="slider">
+
+      <button class="city" onclick="getWeather('Tokyo')"><img src="assets/tokyo.png" alt="Tokyo"></button>
+      <button class="city" onclick="getWeather('Paris')"><img src="assets/paris.png" alt="Paris"></button>
+      <button class="city" onclick="getWeather('New York')"><img src="assets/ny.png" alt="New York"></button>
+      <button class="city" onclick="getWeather('Delhi')"><img src="assets/india.png" alt="India"></button>
+      <button class="city" onclick="getWeather('Lahore')"><img src="assets/lahore.png" alt="Lahore"></button>
+      <button class="city" onclick="getWeather('Seoul')"><img src="assets/seoul.png" alt="Seoul"></button>
+
+    </div>
+  </div>
+
+</div>
+
+<script>
+ document.addEventListener('DOMContentLoaded', function() {
+    const homeBtn = document.getElementById('homeBtn');
+    if (homeBtn) {
+        homeBtn.addEventListener('click', function() {
+            // Navigate to home page
+            window.location.href = 'theme2index.html'; // Change to your actual home page filename
+        });
+    }
+});
+const slider = document.getElementById("slider");
+let index = 0;
+const visible = 3;
+const total = slider.children.length;
+
+setInterval(() => {
+  index++;
+  if (index > total - visible) index = 0;
+  slider.style.transform = `translateX(-${index * 90}px)`;
+}, 2000);
+
+function searchWeather() {
+  const city = document.getElementById("cityInput").value.trim();
+  if (!city) {
+    alert("Please enter a city name");
+    return;
+  }
+  getWeather(city);
+}
+
+function getWeather(city) {
+  window.location.href = `currentweathertheme2.html?city=${encodeURIComponent(city)}`;
+}
+</script>
+
+    <script src="global-reminders.js"></script>
+</body>
+</html>

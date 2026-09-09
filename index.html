@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Desktop App UI</title>
+
+    <!-- Google Pixel Font -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* ── Voice UI additions ── */
+        .voice-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .mic-btn {
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+        }
+
+        /* Pulsing glow when listening */
+        .mic-btn.mic-active img {
+            filter: drop-shadow(0 0 8px #ff4444) drop-shadow(0 0 16px #ff4444);
+            animation: mic-pulse 0.8s ease-in-out infinite alternate;
+        }
+
+        @keyframes mic-pulse {
+            from {
+                transform: scale(1);
+            }
+
+            to {
+                transform: scale(1.18);
+            }
+        }
+
+        /* Language toggle button */
+        #lang-toggle {
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: #fff;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 7px;
+            padding: 5px 8px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s;
+            white-space: nowrap;
+        }
+
+        #lang-toggle:hover {
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        /* Status label */
+        #voice-status {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 7px;
+            color: #ff4444;
+            min-height: 14px;
+            text-align: center;
+            display: block;
+            margin-top: 4px;
+            letter-spacing: 0.5px;
+        }
+
+        /* Theme button */
+        .theme-btn {
+            position: absolute;
+            top: 7px;
+            left: 280px;
+            background: rgba(255, 255, 255, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            text-decoration: none;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            z-index: 1000;
+        }
+
+        .theme-btn:hover {
+            background: rgba(255, 255, 255, 0.4);
+            transform: rotate(15deg) scale(1.1);
+        }
+
+
+        @keyframes fadeOutRight {
+            to {
+                opacity: 0;
+                transform: translateX(100%);
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="global-reminders.css">
+</head>
+
+<body>
+
+    <div class="app-window">
+        <!-- THEME SWITCH BUTTON -->
+        <a href="theme2index.html" class="theme-btn" title="Switch to Theme 2">🎨</a>
+
+        <!-- TOP CONTENT -->
+        <div class="content-area">
+            <p class="assistant-text" id="typing-text"></p>
+
+            <img src="assets/Gif1idle (1).gif" class="center-gif" alt="Cat GIF">
+
+            <div class="input-wrapper">
+                <div class="voice-controls">
+                    <button class="mic-btn" id="mic-btn" title="Click to speak">
+                        <img src="assets/mic.png" alt="Mic">
+                    </button>
+                    <button id="lang-toggle">🌐 EN</button>
+                </div>
+
+                <input type="text" id="text-input" class="command-input" placeholder="Type command...">
+            </div>
+            <span id="voice-status"></span>
+        </div>
+
+        <!-- BOTTOM MOST BUTTON BAR -->
+        <div class="bottom-buttons">
+            <a href="pomodoro.html" class="icon-link">
+                <button class="icon-btn"><img src="assets/pomodoropng.png" alt="Pomodoro"></button>
+            </a>
+
+            <a href="reminder.html" class="icon-link">
+                <button class="icon-btn"><img src="assets/reminderpngg.png" alt="Reminder"></button>
+            </a>
+
+            <a href="weather.html" class="icon-link">
+                <button class="icon-btn"><img src="assets/weather.png" alt="Weather"></button>
+            </a>
+
+            <a href="music.html" class="icon-link">
+                <button class="icon-btn"><img src="assets/musicpng.png" alt="Music"></button>
+            </a>
+
+            <a href="todolist.html" class="icon-link">
+                <button class="icon-btn"><img src="assets/todolistpng.png" alt="To-Do List"></button>
+            </a>
+
+            <a href="game.html" class="icon-link">
+                <button class="icon-btn"><img src="assets/gamepng.png" alt="Game"></button>
+            </a>
+        </div>
+
+    </div>
+
+    <!-- Typing Effect -->
+
+    <script src="voice.js"></script>
+    <script src="global-reminders.js"></script>
+    <script>
+
+        const slider = document.getElementById("slider");
+        if (slider) {
+            setInterval(() => {
+                const first = slider.firstElementChild;
+                slider.style.transition = "transform 0.6s ease";
+                slider.style.transform = "translateX(-90px)";
+                setTimeout(() => {
+                    slider.style.transition = "none";
+                    slider.style.transform = "translateX(0)";
+                    slider.appendChild(first);
+                }, 600);
+            }, 2000);
+        }
+    </script>
+
+</body>
+
+</html>

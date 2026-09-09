@@ -1,0 +1,1701 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Assistant | Themes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Press Start 2P', cursive;
+        }
+
+        body {
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+            transition: all 0.5s ease;
+        }
+
+        /* Default Theme (Cat) - Pink/Purple */
+        body.theme-cat {
+            background-color: #ffd6e7;
+            color: #5a2d5d;
+        }
+
+        body.theme-cat::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                radial-gradient(circle at 10% 20%, rgba(255, 182, 193, 0.3) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(221, 160, 221, 0.3) 0%, transparent 20%),
+                url('data:image/svg+xml;utf8,<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M20,20 L80,20 L80,80 L20,80 Z" fill="%23ff69b4" opacity="0.2"/><circle cx="50" cy="50" r="15" fill="%239b4f96" opacity="0.15"/></svg>');
+            background-size: 120px, 120px, 120px;
+            z-index: -1;
+            animation: backgroundFloat 20s ease-in-out infinite alternate;
+        }
+
+        /* Girl Theme - Yellow/Orange Vibrant */
+        body.theme-girl {
+            background-color: #fff8dc;
+            color: #ff6b35;
+        }
+
+        body.theme-girl::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                radial-gradient(circle at 10% 20%, rgba(255, 215, 0, 0.3) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(255, 140, 0, 0.3) 0%, transparent 20%),
+                url('data:image/svg+xml;utf8,<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M20,20 L80,20 L80,80 L20,80 Z" fill="%23ffa500" opacity="0.2"/><circle cx="50" cy="50" r="15" fill="%23ff6b35" opacity="0.15"/></svg>');
+            background-size: 120px, 120px, 120px;
+            z-index: -1;
+            animation: backgroundFloat 20s ease-in-out infinite alternate;
+        }
+
+        /* Boy Theme - Blue/Light/Black */
+        body.theme-boy {
+            background-color: #e6f7ff;
+            color: #1a3a5f;
+        }
+
+        body.theme-boy::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                radial-gradient(circle at 10% 20%, rgba(173, 216, 230, 0.3) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(135, 206, 250, 0.3) 0%, transparent 20%),
+                url('data:image/svg+xml;utf8,<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M20,20 L80,20 L80,80 L20,80 Z" fill="%234169e1" opacity="0.2"/><circle cx="50" cy="50" r="15" fill="%231a3a5f" opacity="0.15"/></svg>');
+            background-size: 120px, 120px, 120px;
+            z-index: -1;
+            animation: backgroundFloat 20s ease-in-out infinite alternate;
+        }
+
+        @keyframes backgroundFloat {
+            0% {
+                background-position: 0 0, 100% 100%, 0 0;
+            }
+
+            100% {
+                background-position: 20px 20px, 80% 80%, 10px 10px;
+            }
+        }
+
+        /* Header - Theme Variations */
+        /* Cat Theme */
+        body.theme-cat header {
+            background: linear-gradient(135deg, #ffb6c1, #dda0dd);
+            box-shadow: 0 4px 20px rgba(255, 105, 180, 0.3);
+        }
+
+        body.theme-cat .logo-icon {
+            background: linear-gradient(135deg, #ff69b4, #9b4f96);
+            color: white;
+        }
+
+        body.theme-cat nav ul li a {
+            color: #5a2d5d;
+        }
+
+        body.theme-cat nav ul li a:hover,
+        body.theme-cat nav ul li a.active {
+            background: linear-gradient(135deg, #ff69b4, #9b4f96);
+            color: white;
+        }
+
+        body.theme-cat .login-btn {
+            background: linear-gradient(135deg, #ff69b4, #9b4f96);
+            color: white;
+        }
+
+        body.theme-cat .login-btn:hover {
+            background: white;
+            color: #ff69b4;
+        }
+
+        /* Girl Theme */
+        body.theme-girl header {
+            background: linear-gradient(135deg, #ffd700, #ff8c00);
+            box-shadow: 0 4px 20px rgba(255, 107, 53, 0.3);
+        }
+
+        body.theme-girl .logo-icon {
+            background: linear-gradient(135deg, #ff6b35, #ffa500);
+            color: white;
+        }
+
+        body.theme-girl nav ul li a {
+            color: #ff6b35;
+        }
+
+        body.theme-girl nav ul li a:hover,
+        body.theme-girl nav ul li a.active {
+            background: linear-gradient(135deg, #ff6b35, #ffa500);
+            color: white;
+        }
+
+        body.theme-girl .login-btn {
+            background: linear-gradient(135deg, #ff6b35, #ffa500);
+            color: white;
+        }
+
+        body.theme-girl .login-btn:hover {
+            background: white;
+            color: #ff6b35;
+        }
+
+        /* Boy Theme */
+        body.theme-boy header {
+            background: linear-gradient(135deg, #87cefa, #4169e1);
+            box-shadow: 0 4px 20px rgba(26, 58, 95, 0.3);
+        }
+
+        body.theme-boy .logo-icon {
+            background: linear-gradient(135deg, #4169e1, #1a3a5f);
+            color: white;
+        }
+
+        body.theme-boy nav ul li a {
+            color: #1a3a5f;
+        }
+
+        body.theme-boy nav ul li a:hover,
+        body.theme-boy nav ul li a.active {
+            background: linear-gradient(135deg, #4169e1, #1a3a5f);
+            color: white;
+        }
+
+        body.theme-boy .login-btn {
+            background: linear-gradient(135deg, #4169e1, #1a3a5f);
+            color: white;
+        }
+
+        body.theme-boy .login-btn:hover {
+            background: white;
+            color: #4169e1;
+        }
+
+        /* Common Header Styles */
+        header {
+            padding: 0 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+            position: relative;
+            z-index: 100;
+            animation: slideDown 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        @keyframes slideDown {
+            0% {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2.2rem;
+            font-weight: 800;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 1.8rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            animation: pulse 2s infinite ease-in-out;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-main {
+            font-size: 1.8rem;
+            line-height: 1;
+        }
+
+        .logo-tagline {
+            font-size: 0.8rem;
+            margin-top: 3px;
+        }
+
+        /* Theme-specific logo colors */
+        body.theme-cat .logo-main {
+            color: #5a2d5d;
+        }
+
+        body.theme-cat .logo-tagline {
+            color: #9b4f96;
+        }
+
+        body.theme-girl .logo-main {
+            color: #ff6b35;
+        }
+
+        body.theme-girl .logo-tagline {
+            color: #ffa500;
+        }
+
+        body.theme-boy .logo-main {
+            color: #1a3a5f;
+        }
+
+        body.theme-boy .logo-tagline {
+            color: #4169e1;
+        }
+
+        /* Navigation */
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 30px;
+            position: relative;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        nav ul li a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            transition: width 0.4s cubic-bezier(0.22, 0.61, 0.36, 1);
+        }
+
+        /* Theme-specific nav underline colors */
+        body.theme-cat nav ul li a::before {
+            background-color: #ff69b4;
+        }
+
+        body.theme-girl nav ul li a::before {
+            background-color: #ff6b35;
+        }
+
+        body.theme-boy nav ul li a::before {
+            background-color: #4169e1;
+        }
+
+        nav ul li a:hover::before {
+            width: 100%;
+        }
+
+        nav ul li a:hover {
+            transform: translateY(-2px);
+        }
+
+        nav ul li a.active {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Login Button */
+        .login-btn {
+            border: none;
+            padding: 10px 24px;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .login-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.7s ease;
+            z-index: -1;
+        }
+
+        .login-btn:hover::before {
+            left: 100%;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .login-btn i {
+            margin-right: 8px;
+        }
+
+        /* Theme Switcher */
+        .theme-switcher {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            z-index: 1000;
+            background: white;
+            border-radius: 20px;
+            padding: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            transform: translateX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .theme-switcher.collapsed {
+            transform: translateX(calc(100% - 60px));
+        }
+
+        .theme-toggle-btn {
+            position: absolute;
+            left: -40px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: -3px 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle-btn:hover {
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .theme-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            padding: 10px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .theme-option:hover {
+            transform: scale(1.05);
+        }
+
+        .theme-option.active {
+            border-color: currentColor;
+            transform: scale(1.05);
+        }
+
+        .theme-preview {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: white;
+        }
+
+        .theme-name {
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        /* Theme-specific preview colors */
+        .theme-cat-preview {
+            background: linear-gradient(135deg, #ff69b4, #9b4f96);
+        }
+
+        .theme-girl-preview {
+            background: linear-gradient(135deg, #ff6b35, #ffa500);
+        }
+
+        .theme-boy-preview {
+            background: linear-gradient(135deg, #4169e1, #1a3a5f);
+        }
+
+        /* Hero Section */
+        .themes-hero {
+            padding: 80px 5%;
+            text-align: center;
+            margin-bottom: 60px;
+            border-bottom: 3px solid;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Theme-specific hero colors */
+        body.theme-cat .themes-hero {
+            background: linear-gradient(135deg, #ff69b4, #9b4f96);
+            border-bottom-color: #ffb6c1;
+        }
+
+        body.theme-girl .themes-hero {
+            background: linear-gradient(135deg, #ff6b35, #ffa500);
+            border-bottom-color: #ffd700;
+        }
+
+        body.theme-boy .themes-hero {
+            background: linear-gradient(135deg, #4169e1, #1a3a5f);
+            border-bottom-color: #87cefa;
+        }
+
+        .themes-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            animation: rotate 20s linear infinite;
+            z-index: 0;
+        }
+
+        body.theme-cat .themes-hero::before {
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+        }
+
+        body.theme-girl .themes-hero::before {
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+        }
+
+        body.theme-boy .themes-hero::before {
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+        }
+
+        @keyframes rotate {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .hero-title {
+            font-size: 3.8rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        body.theme-cat .hero-title {
+            color: white;
+        }
+
+        body.theme-girl .hero-title {
+            color: white;
+        }
+
+        body.theme-boy .hero-title {
+            color: white;
+        }
+
+        .hero-subtitle {
+            font-size: 1.4rem;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        body.theme-cat .hero-subtitle {
+            color: #ffd6e7;
+        }
+
+        body.theme-girl .hero-subtitle {
+            color: #fff8dc;
+        }
+
+        body.theme-boy .hero-subtitle {
+            color: #e6f7ff;
+        }
+
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Theme Showcase */
+        .theme-showcase {
+            padding: 0 5% 80px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .themes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .theme-card {
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            border: 3px solid;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: cardEntrance 0.8s ease-out forwards;
+        }
+
+        .theme-card:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .theme-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .theme-card:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        @keyframes cardEntrance {
+            0% {
+                opacity: 0;
+                transform: translateY(30px) scale(0.95);
+            }
+
+            70% {
+                transform: translateY(-10px) scale(1.02);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .theme-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Individual theme card styles */
+        .theme-card.cat-theme {
+            background: linear-gradient(135deg, #ffd6e7, #ffb6c1);
+            border-color: #ff69b4;
+        }
+
+        .theme-card.girl-theme {
+            background: linear-gradient(135deg, #fff8dc, #ffd700);
+            border-color: #ff6b35;
+        }
+
+        .theme-card.boy-theme {
+            background: linear-gradient(135deg, #e6f7ff, #87cefa);
+            border-color: #4169e1;
+        }
+
+        .theme-card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .theme-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-right: 25px;
+            flex-shrink: 0;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            color: white;
+            animation: iconFloat 3s ease-in-out infinite;
+        }
+
+        .cat-theme .theme-icon {
+            background: linear-gradient(135deg, #ff69b4, #9b4f96);
+        }
+
+        .girl-theme .theme-icon {
+            background: linear-gradient(135deg, #ff6b35, #ffa500);
+        }
+
+        .boy-theme .theme-icon {
+            background: linear-gradient(135deg, #4169e1, #1a3a5f);
+        }
+
+        @keyframes iconFloat {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .theme-card-title {
+            font-size: 1.8rem;
+            transition: transform 0.4s ease;
+        }
+
+        .cat-theme .theme-card-title {
+            color: #5a2d5d;
+        }
+
+        .girl-theme .theme-card-title {
+            color: #ff6b35;
+        }
+
+        .boy-theme .theme-card-title {
+            color: #1a3a5f;
+        }
+
+        .theme-card:hover .theme-card-title {
+            transform: translateX(10px);
+        }
+
+        .theme-description {
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .theme-description p {
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .cat-theme .theme-description p {
+            color: #5a2d5d;
+        }
+
+        .girl-theme .theme-description p {
+            color: #ff6b35;
+        }
+
+        .boy-theme .theme-description p {
+            color: #1a3a5f;
+        }
+
+        .theme-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .theme-feature {
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .cat-theme .theme-feature {
+            background: rgba(255, 105, 180, 0.2);
+            color: #5a2d5d;
+            border: 1px solid #ff69b4;
+        }
+
+        .girl-theme .theme-feature {
+            background: rgba(255, 107, 53, 0.2);
+            color: #ff6b35;
+            border: 1px solid #ff6b35;
+        }
+
+        .boy-theme .theme-feature {
+            background: rgba(65, 105, 225, 0.2);
+            color: #1a3a5f;
+            border: 1px solid #4169e1;
+        }
+
+        .theme-action {
+            margin-top: auto;
+            text-align: center;
+        }
+
+        .select-theme-btn {
+            padding: 12px 30px;
+            border-radius: 30px;
+            border: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .select-theme-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.6s ease;
+            z-index: -1;
+        }
+
+        .select-theme-btn:hover::before {
+            left: 100%;
+        }
+
+        .select-theme-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .cat-theme .select-theme-btn {
+            background: linear-gradient(135deg, #ff69b4, #9b4f96);
+            color: white;
+        }
+
+        .cat-theme .select-theme-btn:hover {
+            background: white;
+            color: #ff69b4;
+        }
+
+        .girl-theme .select-theme-btn {
+            background: linear-gradient(135deg, #ff6b35, #ffa500);
+            color: white;
+        }
+
+        .girl-theme .select-theme-btn:hover {
+            background: white;
+            color: #ff6b35;
+        }
+
+        .boy-theme .select-theme-btn {
+            background: linear-gradient(135deg, #4169e1, #1a3a5f);
+            color: white;
+        }
+
+        .boy-theme .select-theme-btn:hover {
+            background: white;
+            color: #4169e1;
+        }
+
+        /* Features Section */
+        .features-section {
+            padding: 60px 5%;
+            border-radius: 30px;
+            margin-bottom: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        body.theme-cat .features-section {
+            background: linear-gradient(135deg, rgba(255, 214, 231, 0.9), rgba(255, 182, 193, 0.9));
+            border: 3px solid #ff69b4;
+        }
+
+        body.theme-girl .features-section {
+            background: linear-gradient(135deg, rgba(255, 248, 220, 0.9), rgba(255, 215, 0, 0.9));
+            border: 3px solid #ff6b35;
+        }
+
+        body.theme-boy .features-section {
+            background: linear-gradient(135deg, rgba(230, 247, 255, 0.9), rgba(135, 206, 250, 0.9));
+            border: 3px solid #4169e1;
+        }
+
+        .features-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        body.theme-cat .features-title {
+            color: #5a2d5d;
+        }
+
+        body.theme-girl .features-title {
+            color: #ff6b35;
+        }
+
+        body.theme-boy .features-title {
+            color: #1a3a5f;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-item {
+            padding: 25px;
+            border-radius: 20px;
+            transition: all 0.4s ease;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            cursor: pointer;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-10px);
+        }
+
+        body.theme-cat .feature-item {
+            background: rgba(255, 255, 255, 0.8);
+            border: 2px solid #ffb6c1;
+        }
+
+        body.theme-cat .feature-item:hover {
+            background: white;
+            box-shadow: 0 10px 20px rgba(255, 105, 180, 0.2);
+        }
+
+        body.theme-girl .feature-item {
+            background: rgba(255, 255, 255, 0.8);
+            border: 2px solid #ffd700;
+        }
+
+        body.theme-girl .feature-item:hover {
+            background: white;
+            box-shadow: 0 10px 20px rgba(255, 107, 53, 0.2);
+        }
+
+        body.theme-boy .feature-item {
+            background: rgba(255, 255, 255, 0.8);
+            border: 2px solid #87cefa;
+        }
+
+        body.theme-boy .feature-item:hover {
+            background: white;
+            box-shadow: 0 10px 20px rgba(65, 105, 225, 0.2);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            flex-shrink: 0;
+            color: white;
+        }
+
+        body.theme-cat .feature-icon {
+            background: linear-gradient(135deg, #ff69b4, #9b4f96);
+        }
+
+        body.theme-girl .feature-icon {
+            background: linear-gradient(135deg, #ff6b35, #ffa500);
+        }
+
+        body.theme-boy .feature-icon {
+            background: linear-gradient(135deg, #4169e1, #1a3a5f);
+        }
+
+        .feature-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        body.theme-cat .feature-content h3 {
+            color: #5a2d5d;
+        }
+
+        body.theme-girl .feature-content h3 {
+            color: #ff6b35;
+        }
+
+        body.theme-boy .feature-content h3 {
+            color: #1a3a5f;
+        }
+
+        .feature-content p {
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        body.theme-cat .feature-content p {
+            color: #5a2d5d;
+        }
+
+        body.theme-girl .feature-content p {
+            color: #ff6b35;
+        }
+
+        body.theme-boy .feature-content p {
+            color: #1a3a5f;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 5%;
+            border-top: 1px solid;
+            position: relative;
+            overflow: hidden;
+        }
+
+        body.theme-cat footer {
+            background: linear-gradient(135deg, #ff69b4, #9b4f96);
+            border-top-color: #ffb6c1;
+        }
+
+        body.theme-girl footer {
+            background: linear-gradient(135deg, #ff6b35, #ffa500);
+            border-top-color: #ffd700;
+        }
+
+        body.theme-boy footer {
+            background: linear-gradient(135deg, #4169e1, #1a3a5f);
+            border-top-color: #87cefa;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            animation: footerLine 3s infinite linear;
+        }
+
+        body.theme-cat footer::before {
+            background: linear-gradient(90deg, white, #ffb6c1, white);
+        }
+
+        body.theme-girl footer::before {
+            background: linear-gradient(90deg, white, #ffd700, white);
+        }
+
+        body.theme-boy footer::before {
+            background: linear-gradient(90deg, white, #87cefa, white);
+        }
+
+        @keyframes footerLine {
+            0% {
+                background-position: 0% 0%;
+            }
+
+            100% {
+                background-position: 200% 0%;
+            }
+        }
+
+        footer p {
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 1s ease-out 0.5s both;
+            color: white;
+        }
+
+        footer p:nth-child(2) {
+            animation-delay: 0.7s;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1100px) {
+            .themes-grid {
+                gap: 30px;
+            }
+
+            .theme-card {
+                padding: 25px;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .themes-grid {
+                grid-template-columns: 1fr;
+                max-width: 600px;
+                margin: 0 auto;
+            }
+
+            .hero-title {
+                font-size: 3.2rem;
+            }
+
+            .theme-switcher {
+                top: auto;
+                bottom: 20px;
+                right: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                height: auto;
+                padding: 20px;
+            }
+
+            .logo-container {
+                margin-bottom: 20px;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+                margin-bottom: 20px;
+            }
+
+            nav ul li {
+                margin: 5px 10px;
+            }
+
+            .hero-title {
+                font-size: 2.8rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 1.8rem;
+            }
+
+            .logo-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 1.5rem;
+            }
+
+            .hero-title {
+                font-size: 2.3rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .theme-card-title {
+                font-size: 1.5rem;
+            }
+
+            .theme-card {
+                padding: 20px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body class="theme-cat">
+    <!-- Theme Switcher -->
+    <div class="theme-switcher">
+        <button class="theme-toggle-btn" id="themeToggle">
+            <i class="fas fa-palette"></i>
+        </button>
+        <div class="theme-option active" data-theme="cat">
+            <div class="theme-preview theme-cat-preview">
+                <i class="fas fa-cat"></i>
+            </div>
+            <span class="theme-name">Cat Theme</span>
+        </div>
+        <div class="theme-option" data-theme="girl">
+            <div class="theme-preview theme-girl-preview">
+                <i class="fas fa-female"></i>
+            </div>
+            <span class="theme-name">Girl Theme</span>
+        </div>
+        <div class="theme-option" data-theme="boy">
+            <div class="theme-preview theme-boy-preview">
+                <i class="fas fa-male"></i>
+            </div>
+            <span class="theme-name">Boy Theme</span>
+        </div>
+    </div>
+
+    <!-- Main Header -->
+    <header>
+        <div class="logo-container">
+            <a href="#" class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <div class="logo-text">
+                    <span class="logo-main">Smart Assistant</span>
+                    <span class="logo-tagline">Your Intelligent Companion</span>
+                </div>
+            </a>
+        </div>
+
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="features.html">Features</a></li>
+                <li><a href="#" class="active">Theme</a></li>
+                <li><a href="#">Pricing</a></li>
+                <li><a href="#">About</a></li>
+            </ul>
+        </nav>
+
+        <button class="login-btn">
+            <i class="fas fa-user"></i> Login
+        </button>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="themes-hero">
+        <h1 class="hero-title">Choose Your Theme</h1>
+        <p class="hero-subtitle">Personalize your Smart Assistant experience with themes that match your style and
+            personality. Switch between themes instantly!</p>
+    </section>
+
+    <!-- Theme Showcase -->
+    <section class="theme-showcase">
+        <div class="themes-grid">
+
+            <!-- Cat Theme Card -->
+            <div class="theme-card cat-theme">
+                <div class="theme-card-header">
+                    <div class="theme-icon">
+                        <i class="fas fa-cat"></i>
+                    </div>
+                    <h2 class="theme-card-title">Cute Cat Theme</h2>
+                </div>
+
+                <div class="theme-description">
+                    <p>A playful theme featuring pink and purple colors with cute cat elements. Perfect for those who
+                        love a fun, energetic interface.</p>
+                    <p>Features soft animations and playful icons that bring joy to your daily tasks.</p>
+                </div>
+
+                <div class="theme-features">
+                    <span class="theme-feature">Pink & Purple</span>
+                    <span class="theme-feature">Cat Elements</span>
+                    <span class="theme-feature">Playful Design</span>
+                    <span class="theme-feature">Soft Animations</span>
+                </div>
+
+                <div class="theme-action">
+                    <button class="select-theme-btn" data-theme="cat">
+                        <i class="fas fa-paw"></i> Select Cat Theme
+                    </button>
+                </div>
+            </div>
+
+            <!-- Girl Theme Card -->
+            <div class="theme-card girl-theme">
+                <div class="theme-card-header">
+                    <div class="theme-icon">
+                        <i class="fas fa-female"></i>
+                    </div>
+                    <h2 class="theme-card-title">Girl Theme</h2>
+                </div>
+
+                <div class="theme-description">
+                    <p>A vibrant theme with yellow and orange colors that exudes energy and positivity. Ideal for those
+                        who love bright, cheerful interfaces.</p>
+                    <p>Features energetic animations and vibrant color combinations that keep you motivated.</p>
+                </div>
+
+                <div class="theme-features">
+                    <span class="theme-feature">Yellow & Orange</span>
+                    <span class="theme-feature">Vibrant Design</span>
+                    <span class="theme-feature">Energetic Colors</span>
+                    <span class="theme-feature">Motivational</span>
+                </div>
+
+                <div class="theme-action">
+                    <button class="select-theme-btn" data-theme="girl">
+                        <i class="fas fa-sun"></i> Select Girl Theme
+                    </button>
+                </div>
+            </div>
+
+            <!-- Boy Theme Card -->
+            <div class="theme-card boy-theme">
+                <div class="theme-card-header">
+                    <div class="theme-icon">
+                        <i class="fas fa-male"></i>
+                    </div>
+                    <h2 class="theme-card-title">Boy Theme</h2>
+                </div>
+
+                <div class="theme-description">
+                    <p>A clean theme with blue, light, and black colors that offers a professional and focused
+                        interface. Perfect for productivity.</p>
+                    <p>Features smooth transitions and a balanced color scheme that reduces eye strain during long work
+                        sessions.</p>
+                </div>
+
+                <div class="theme-features">
+                    <span class="theme-feature">Blue & Black</span>
+                    <span class="theme-feature">Clean Design</span>
+                    <span class="theme-feature">Professional</span>
+                    <span class="theme-feature">Focused Interface</span>
+                </div>
+
+                <div class="theme-action">
+                    <button class="select-theme-btn" data-theme="boy">
+                        <i class="fas fa-moon"></i> Select Boy Theme
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Features Section -->
+        <div class="features-section">
+            <h2 class="features-title">All Themes Include</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-bell"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Smart Reminders</h3>
+                        <p>Never miss important tasks with intelligent reminder system that adapts to your schedule.</p>
+                    </div>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-microphone"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Voice & Text Assistance</h3>
+                        <p>Get help through voice commands or text input with our intelligent assistant.</p>
+                    </div>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Pomodoro Timer</h3>
+                        <p>Boost productivity with customizable Pomodoro timer and break management.</p>
+                    </div>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-music"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Music Playlist</h3>
+                        <p>Create and manage your favorite playlists for work, study, or relaxation.</p>
+                    </div>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-cloud-sun"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Weather Updates</h3>
+                        <p>Get real-time weather information and forecasts for your location.</p>
+                    </div>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-gamepad"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Games & Entertainment</h3>
+                        <p>Enjoy built-in games and entertainment options for relaxation breaks.</p>
+                    </div>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-list"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>To-Do Lists</h3>
+                        <p>Organize your tasks with smart to-do lists that sync across devices.</p>
+                    </div>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Web Search</h3>
+                        <p>Quick web search integration for instant information access.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2023 Smart Assistant. All rights reserved.</p>
+        <p>Personalize your experience with themes that match your style!</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Theme Switcher Functionality
+            const themeSwitcher = document.querySelector('.theme-switcher');
+            const themeToggle = document.getElementById('themeToggle');
+            const themeOptions = document.querySelectorAll('.theme-option');
+            const selectThemeBtns = document.querySelectorAll('.select-theme-btn');
+            const body = document.body;
+
+            // Toggle theme switcher visibility
+            themeToggle.addEventListener('click', function () {
+                themeSwitcher.classList.toggle('collapsed');
+                this.innerHTML = themeSwitcher.classList.contains('collapsed') ?
+                    '<i class="fas fa-chevron-left"></i>' :
+                    '<i class="fas fa-chevron-right"></i>';
+            });
+
+            // Function to change theme
+            function changeTheme(themeName) {
+                // Remove all theme classes
+                body.classList.remove('theme-cat', 'theme-girl', 'theme-boy');
+
+                // Add new theme class
+                body.classList.add(`theme-${themeName}`);
+
+                // Update active state in theme switcher
+                themeOptions.forEach(option => {
+                    option.classList.remove('active');
+                    if (option.dataset.theme === themeName) {
+                        option.classList.add('active');
+                    }
+                });
+
+                // Update active state in theme cards
+                selectThemeBtns.forEach(btn => {
+                    if (btn.dataset.theme === themeName) {
+                        btn.innerHTML = `<i class="fas fa-check"></i> Current Theme`;
+                        btn.disabled = true;
+                    } else {
+                        const icon = btn.dataset.theme === 'cat' ? 'fa-paw' :
+                            btn.dataset.theme === 'girl' ? 'fa-sun' : 'fa-moon';
+                        btn.innerHTML = `<i class="fas ${icon}"></i> Select ${btn.dataset.theme.charAt(0).toUpperCase() + btn.dataset.theme.slice(1)} Theme`;
+                        btn.disabled = false;
+                    }
+                });
+
+                // Save theme preference to localStorage
+                localStorage.setItem('smartAssistantTheme', themeName);
+
+                // Show notification
+                showThemeChangeNotification(themeName);
+            }
+
+            // Theme option click event
+            themeOptions.forEach(option => {
+                option.addEventListener('click', function () {
+                    const themeName = this.dataset.theme;
+                    changeTheme(themeName);
+                });
+            });
+
+            // Select theme button click event
+            selectThemeBtns.forEach(btn => {
+                btn.addEventListener('click', function () {
+                    const themeName = this.dataset.theme;
+                    changeTheme(themeName);
+
+                    // Add animation to the button
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 300);
+                });
+            });
+
+            // Show theme change notification
+            function showThemeChangeNotification(themeName) {
+                // Create notification element
+                const notification = document.createElement('div');
+                notification.className = 'theme-notification';
+                notification.innerHTML = `
+                    <i class="fas fa-check-circle"></i>
+                    <span>Theme changed to ${themeName.charAt(0).toUpperCase() + themeName.slice(1)} Theme</span>
+                `;
+
+                // Style the notification
+                notification.style.cssText = `
+                    position: fixed;
+                    bottom: 20px;
+                    left: 50%;
+                    transform: translateX(-50%) translateY(100px);
+                    background: white;
+                    padding: 15px 25px;
+                    border-radius: 10px;
+                    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    z-index: 1000;
+                    transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+                `;
+
+                // Theme-specific notification colors
+                if (themeName === 'cat') {
+                    notification.style.background = 'linear-gradient(135deg, #ff69b4, #9b4f96)';
+                    notification.style.color = 'white';
+                } else if (themeName === 'girl') {
+                    notification.style.background = 'linear-gradient(135deg, #ff6b35, #ffa500)';
+                    notification.style.color = 'white';
+                } else {
+                    notification.style.background = 'linear-gradient(135deg, #4169e1, #1a3a5f)';
+                    notification.style.color = 'white';
+                }
+
+                document.body.appendChild(notification);
+
+                // Animate in
+                setTimeout(() => {
+                    notification.style.transform = 'translateX(-50%) translateY(0)';
+                }, 10);
+
+                // Animate out and remove
+                setTimeout(() => {
+                    notification.style.transform = 'translateX(-50%) translateY(100px)';
+                    setTimeout(() => {
+                        notification.remove();
+                    }, 500);
+                }, 3000);
+            }
+
+            // Load saved theme from localStorage
+            const savedTheme = localStorage.getItem('smartAssistantTheme') || 'cat';
+            changeTheme(savedTheme);
+
+            // Login button functionality
+            const loginBtn = document.querySelector('.login-btn');
+            loginBtn.addEventListener('click', function () {
+                // Create ripple effect
+                const ripple = document.createElement('span');
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = event.clientX - rect.left - size / 2;
+                const y = event.clientY - rect.top - size / 2;
+
+                ripple.style.cssText = `
+                    position: absolute;
+                    border-radius: 50%;
+                    background: rgba(255, 255, 255, 0.6);
+                    transform: scale(0);
+                    animation: ripple-animation 0.6s linear;
+                    width: ${size}px;
+                    height: ${size}px;
+                    top: ${y}px;
+                    left: ${x}px;
+                `;
+
+                this.appendChild(ripple);
+
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+
+                // Show login modal after animation
+                setTimeout(() => {
+                    alert('Login functionality would open here. In a real implementation, this would open a login modal or redirect to a login page.');
+                }, 300);
+            });
+
+            // Add ripple animation to CSS
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes ripple-animation {
+                    to {
+                        transform: scale(4);
+                        opacity: 0;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+
+            // Navigation active state
+            const navLinks = document.querySelectorAll('nav ul li a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    if (this.getAttribute('href') === '#') {
+                        e.preventDefault();
+                    }
+
+                    // Remove active class from all links
+                    navLinks.forEach(link => link.classList.remove('active'));
+
+                    // Add active class to clicked link with animation
+                    this.classList.add('active');
+
+                    // Add a subtle scale effect
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 300);
+                });
+            });
+
+            // Feature items hover effect
+            const featureItems = document.querySelectorAll('.feature-item');
+            featureItems.forEach(item => {
+                item.addEventListener('mouseenter', function () {
+                    const icon = this.querySelector('.feature-icon');
+                    icon.style.transform = 'rotate(15deg) scale(1.1)';
+                });
+
+                item.addEventListener('mouseleave', function () {
+                    const icon = this.querySelector('.feature-icon');
+                    icon.style.transform = '';
+                });
+
+                item.addEventListener('click', function () {
+                    const title = this.querySelector('h3').textContent;
+                    alert(`Feature: ${title}\n\nThis feature is available in all themes and includes full functionality.`);
+                });
+            });
+
+            // Add scroll reveal animation for theme cards
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animationDelay = '0s';
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0) scale(1)';
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            const themeCards = document.querySelectorAll('.theme-card');
+            themeCards.forEach(card => {
+                observer.observe(card);
+            });
+
+            // Add page load animation
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.8s ease';
+
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+    </script>
+</body>
+
+</html>

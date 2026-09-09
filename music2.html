@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MelodyWave Player</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="player2.css">
+    <link rel="stylesheet" href="global-reminders.css">
+</head>
+<body class="color-1">
+    <div class="container">
+        <div class="player-container">
+            <div class="header">
+                <div class="logo">
+                    <span>🎵 MelodyWave</span>
+                </div>
+                <button class="playlist-btn" id="playlist-btn">
+                    📁 Playlist
+                </button>
+                <button id="homeBtn" class="home-btn">
+                    <img src="assets/homebtn.png" alt="Home">
+                </button>
+            </div>
+
+            <div class="current-track">
+                <div class="album-art">
+                    <img src="musicimages/firstmusic.jpg" alt="Album Art" id="album-art">
+                </div>
+                <div class="track-info">
+                    <h2 id="track-title">Blue Jeans</h2>
+                    <p id="track-artist-album">Lana Del Rey • Born to Die</p>
+                </div>
+            </div>
+
+            <div class="slider-container">
+                <div class="time-display">
+                    <span class="current-time" id="current-time">0:00</span>
+                    <span class="total-time" id="total-time">0:00</span>
+                </div>
+                <input type="range" min="0" max="100" value="0" class="slider" id="progress-slider">
+            </div>
+
+            <div class="controls">
+                <button class="control-btn" id="prev-btn">
+                    <img src="assets2/back.png" alt="Previous">
+                </button>
+
+                <button class="control-btn play-btn" id="play-btn">
+                    <img src="assets2/play (1).png" alt="Play" id="play-icon">
+                </button>
+
+                <button class="control-btn" id="next-btn">
+                    <img src="assets2/forward.png" alt="Next">
+                </button>
+            </div>
+
+            <div class="volume-controls">
+                <button class="volume-btn" data-volume="0">
+                    <img src="assets2/mute.png" alt="Mute">
+                </button>
+                <button class="volume-btn" data-volume="0.3">
+                    <img src="assets2/heart1.png" alt="Low">
+                </button>
+                <button class="volume-btn active" data-volume="0.7">
+                    <img src="assets2/heart2.png" alt="Medium">
+                </button>
+                <button class="volume-btn" data-volume="1">
+                    <img src="assets2/heart3.png" alt="High">
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Playlist Container (hidden by default) -->
+    <div id="playlist-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 999;">
+    </div>
+    
+    <div id="playlist-container" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1000;">
+        <div class="playlist-container">
+            <div class="menu-header">
+                <button class="back-btn" id="playlist-back-btn">
+                    ← Back
+                </button>
+                <h2>🎵 Music Library</h2>
+                <button class="add-music-btn" id="add-music-btn">
+                    ＋ Add Music
+                </button>
+                <input type="file" id="file-input" class="file-input" accept="audio/*" multiple>
+            </div>
+
+            <div class="music-list" id="music-list">
+                <!-- Music tracks will be loaded here -->
+            </div>
+
+            <div class="footer" style="margin-top: 10px; text-align: center;">
+                <p style="font-size: 8px; color: #1180ef;">Click on tracks to play • Total storage used: <span id="storage-used">0 KB</span></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="player2.js"></script>
+    <script src="playlist.js"></script>
+    <script>
+        document.getElementById("homeBtn").addEventListener("click", function() {
+            window.location.href = "theme2index.html";
+        });
+        // Initialize playlist manager after player is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            // Wait a bit for musicPlayer to be initialized
+            setTimeout(() => {
+                if (window.musicPlayer) {
+                    // Initialize playlist manager
+                    const playlistManager = new PlaylistManager();
+                    window.playlistManager = playlistManager;
+                }
+            }, 100);
+        });
+    </script>
+    <script src="global-reminders.js"></script>
+</body>
+</html>

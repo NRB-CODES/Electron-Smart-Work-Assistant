@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sunset Cat · Dual Slide Modules</title>
+  <style>
+    /* ===== NEW THEME COLORS ===== */
+    :root {
+      --sky-top: #7BD3EA;
+      --sky-middle: #B6EADA;
+      --sky-bottom: #F9F07A;
+      --ground-clouds: #F8A477;
+      --character-hair: #A67B5B;
+      --character-dress: #F9A1BC;
+      --off-white: #F2F2F2;
+      --dark-accent: #5f4a3a;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', 'Courier New', monospace;
+    }
+
+    body {
+      background: linear-gradient(180deg, var(--sky-top) 0%, var(--sky-middle) 50%, var(--sky-bottom) 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* header */
+    .smart-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--ground-clouds);
+      padding: 1rem 2.5rem;
+      border-bottom: 4px solid var(--character-dress);
+      box-shadow: 0 5px 0 var(--character-hair);
+      flex-wrap: wrap;
+      gap: 1rem 2rem;
+    }
+
+    .logo-pixel {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .pixel-grid {
+      width: 60px;
+      height: 60px;
+      background: var(--character-hair);
+      border: 4px solid var(--character-dress);
+      outline: 3px solid var(--sky-bottom);
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(4, 1fr);
+      gap: 3px;
+      padding: 4px;
+    }
+
+    .px { background: var(--sky-middle); border: 1px solid var(--character-hair); }
+    .px.dark { background: var(--character-hair); }
+    .px.glow { background: var(--character-dress); }
+
+    .logo-title {
+      font-weight: 900;
+      font-size: 2.2rem;
+      text-transform: uppercase;
+      color: var(--character-hair);
+      line-height: 1;
+      text-shadow: 2px 2px 0 var(--sky-bottom);
+    }
+
+    .nav-group {
+      display: flex;
+      gap: 0.3rem;
+      background: var(--off-white);
+      padding: 0.4rem 0.8rem;
+      border-radius: 60px;
+      border: 2px solid var(--character-dress);
+    }
+
+    .nav-link {
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1.3rem;
+      padding: 0.4rem 1.2rem;
+      border-radius: 40px;
+      color: var(--character-hair);
+      transition: 0.2s;
+      white-space: nowrap;
+    }
+
+    .nav-link:hover, .nav-link.active {
+      background: var(--character-dress);
+      color: var(--character-hair);
+    }
+
+    .signup-button {
+      background: var(--sky-bottom);
+      border: 3px solid var(--character-dress);
+      padding: 0.5rem 2rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 800;
+      color: var(--character-hair);
+      display: inline-block;
+      white-space: nowrap;
+    }
+
+    /* HERO SECTION */
+    .hero-section {
+      display: flex;
+      justify-content: center;
+      padding: 2rem;
+      flex: 1;
+    }
+
+    .hero-card {
+      background: var(--ground-clouds);
+      border-radius: 60px;
+      border: 5px solid var(--character-dress);
+      padding: 2rem;
+      max-width: 1200px;
+      width: 100%;
+      box-shadow: 0 10px 0 var(--character-hair);
+    }
+
+    .hero-grid {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    /* LEFT PANEL */
+    .desc-panel {
+      flex: 1;
+      background: var(--off-white);
+      border-radius: 40px;
+      padding: 2rem;
+      border: 3px solid var(--character-dress);
+      box-shadow: inset 0 0 0 2px var(--sky-bottom);
+      min-width: 280px;
+      position: relative;
+      overflow: hidden;
+      height: fit-content;
+    }
+
+    .module-badge {
+      background: var(--character-dress);
+      color: var(--character-hair);
+      font-weight: 800;
+      font-size: 1.3rem;
+      padding: 0.4rem 1.2rem;
+      border-radius: 40px;
+      display: inline-block;
+      margin-bottom: 1.5rem;
+      border: 2px solid var(--sky-bottom);
+      word-break: break-word;
+      transition: all 0.3s ease;
+    }
+
+    .desc-title {
+      font-size: 3rem;
+      font-weight: 900;
+      margin-bottom: 1rem;
+      color: var(--character-hair);
+      line-height: 1.2;
+      word-break: break-word;
+      transition: all 0.3s ease;
+      min-height: 4rem;
+      text-shadow: 1px 1px 0 var(--sky-bottom);
+    }
+
+    .desc-text {
+      font-size: 1.2rem;
+      background: var(--sky-bottom);
+      padding: 1.2rem;
+      border-radius: 20px;
+      border: 2px dashed var(--character-dress);
+      margin-bottom: 1.5rem;
+      min-height: 120px;
+      word-break: break-word;
+      transition: all 0.3s ease;
+      color: var(--character-hair);
+    }
+
+    .slide-indicator {
+      font-weight: 700;
+      font-size: 1.3rem;
+      background: var(--sky-top);
+      display: inline-block;
+      padding: 0.5rem 1.5rem;
+      border-radius: 60px;
+      border: 2px solid var(--character-dress);
+      color: var(--character-hair);
+    }
+
+    .sub-slide-indicator {
+      font-size: 0.9rem;
+      background: var(--character-dress);
+      color: var(--character-hair);
+      padding: 0.2rem 0.8rem;
+      border-radius: 30px;
+      margin-left: 0.5rem;
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    /* RIGHT PANEL */
+    .image-panel {
+      flex: 1;
+      background: var(--off-white);
+      border-radius: 40px;
+      padding: 1.5rem;
+      border: 3px solid var(--character-dress);
+      min-width: 280px;
+    }
+
+    .image-container {
+      width: 100%;
+      aspect-ratio: 1/1;
+      overflow: hidden;
+      border-radius: 30px;
+      border: 4px solid var(--character-dress);
+      background: var(--sky-bottom);
+      transition: all 0.2s;
+      position: relative;
+    }
+
+    .image-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: opacity 0.5s ease-in-out;
+    }
+
+    .image-container.fade img {
+      opacity: 0;
+    }
+
+    .image-slider-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .slide-arrow {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      font-size: 2rem;
+      cursor: pointer;
+      background: var(--character-dress);
+      border: 3px solid var(--character-hair);
+      color: var(--character-hair);
+      font-weight: bold;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .slide-arrow:hover {
+      background: var(--sky-bottom);
+      transform: scale(1.1);
+      border-color: var(--character-dress);
+    }
+
+    .slide-arrow:active {
+      transform: scale(0.95);
+    }
+
+    .slide-arrow.small {
+      width: 35px;
+      height: 35px;
+      font-size: 1.3rem;
+    }
+
+    .dot-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--sky-top);
+      border: 2px solid var(--character-hair);
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .dot.active {
+      background: var(--character-dress);
+      transform: scale(1.3);
+      border-color: var(--character-hair);
+    }
+
+    .dot.sub-dot {
+      width: 10px;
+      height: 10px;
+      background: var(--sky-bottom);
+    }
+
+    .dot.sub-dot.active {
+      background: var(--character-dress);
+      transform: scale(1.2);
+    }
+
+    .dot:hover {
+      background: var(--character-dress);
+      transform: scale(1.1);
+    }
+
+    .sub-dot-row {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin-top: 0.5rem;
+    }
+
+    /* pause button */
+    .auto-play-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 0.8rem;
+      gap: 0.5rem;
+    }
+
+    .play-pause-btn {
+      background: var(--off-white);
+      border: 2px solid var(--character-dress);
+      border-radius: 30px;
+      padding: 0.3rem 1rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--character-hair);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .play-pause-btn:hover {
+      background: var(--character-dress);
+    }
+
+    .play-pause-btn.paused {
+      background: var(--character-dress);
+    }
+
+    /* ===== MEDIA QUERIES ===== */
+    @media screen and (max-width: 1200px) {
+      .hero-card { max-width: 95%; padding: 1.8rem; }
+      .desc-title { font-size: 2.8rem; min-height: 3.8rem; }
+    }
+
+    @media screen and (max-width: 1024px) {
+      .smart-header { padding: 1rem 2rem; }
+      .logo-title { font-size: 2rem; }
+      .nav-link { font-size: 1.2rem; padding: 0.4rem 1rem; }
+      .desc-title { font-size: 2.5rem; min-height: 3.5rem; }
+      .module-badge { font-size: 1.2rem; }
+    }
+
+    @media screen and (max-width: 900px) {
+      .hero-grid { gap: 1.5rem; }
+      .desc-panel, .image-panel { min-width: 250px; }
+      .desc-title { font-size: 2.3rem; min-height: 3.3rem; }
+      .desc-text { font-size: 1.1rem; min-height: 100px; }
+      .image-slider-controls { gap: 1rem; }
+    }
+
+    @media screen and (max-width: 768px) {
+      .smart-header { padding: 1rem 1.5rem; justify-content: center; text-align: center; }
+      .logo-pixel { width: 100%; justify-content: center; }
+      .nav-group { width: 100%; justify-content: center; flex-wrap: wrap; }
+      .nav-link { font-size: 1.1rem; padding: 0.4rem 0.8rem; }
+      .signup-box { width: 100%; text-align: center; }
+      .signup-button { width: 100%; max-width: 200px; text-align: center; }
+      .hero-section { padding: 1.5rem; }
+      .hero-card { padding: 1.5rem; border-radius: 40px; }
+      .hero-grid { flex-direction: column; }
+      .desc-panel, .image-panel { width: 100%; }
+      .desc-title { font-size: 2.2rem; min-height: 3.2rem; }
+      .desc-text { min-height: 90px; }
+      .image-container { max-width: 500px; margin: 0 auto; }
+    }
+
+    @media screen and (max-width: 600px) {
+      .smart-header { padding: 1rem; }
+      .pixel-grid { width: 50px; height: 50px; }
+      .logo-title { font-size: 1.8rem; }
+      .nav-link { font-size: 1rem; padding: 0.3rem 0.7rem; }
+      .hero-section { padding: 1rem; }
+      .hero-card { padding: 1.2rem; border-radius: 30px; border-width: 4px; }
+      .desc-panel, .image-panel { padding: 1.2rem; border-radius: 30px; }
+      .module-badge { font-size: 1.1rem; padding: 0.3rem 1rem; margin-bottom: 1rem; }
+      .desc-title { font-size: 2rem; margin-bottom: 0.8rem; min-height: 3rem; }
+      .desc-text { font-size: 1rem; padding: 1rem; min-height: 80px; }
+      .slide-indicator { font-size: 1.1rem; padding: 0.4rem 1.2rem; }
+      .image-panel { padding: 1rem; }
+      .image-container { border-radius: 20px; border-width: 3px; }
+      .slide-arrow { width: 45px; height: 45px; font-size: 1.8rem; }
+      .dot { width: 12px; height: 12px; }
+    }
+
+    @media screen and (max-width: 480px) {
+      .logo-title { font-size: 1.5rem; }
+      .pixel-grid { width: 45px; height: 45px; gap: 2px; padding: 3px; }
+      .nav-group { padding: 0.3rem 0.5rem; }
+      .nav-link { font-size: 0.9rem; padding: 0.3rem 0.6rem; }
+      .signup-button { padding: 0.4rem 1.5rem; font-size: 0.9rem; }
+      .hero-card { padding: 1rem; }
+      .desc-panel, .image-panel { padding: 1rem; }
+      .module-badge { font-size: 1rem; padding: 0.3rem 0.8rem; }
+      .desc-title { font-size: 1.8rem; min-height: 2.8rem; }
+      .desc-text { font-size: 0.95rem; padding: 0.8rem; min-height: 70px; }
+      .slide-indicator { font-size: 1rem; padding: 0.3rem 1rem; }
+      .image-slider-controls { gap: 0.8rem; margin-top: 1rem; }
+      .slide-arrow { width: 40px; height: 40px; font-size: 1.5rem; border-width: 2px; }
+      .dot { width: 10px; height: 10px; border-width: 1.5px; }
+    }
+
+    /* Home Button - Theme 2 */
+.nav-link.back-home {
+  position: relative;
+  background: linear-gradient(135deg, var(--sky-middle), var(--sky-bottom));
+  color: var(--character-hair);
+  font-weight: 800;
+  font-size: 1.3rem;
+  padding: 0.5rem 1.8rem;
+  border-radius: 50px;
+  border: 3px solid var(--character-dress);
+  text-decoration: none;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  display: inline-block;
+  box-shadow: 0 5px 0 var(--ground-clouds);
+}
+
+/* Hover effect */
+.nav-link.back-home:hover {
+  background: linear-gradient(135deg, var(--sky-top), var(--sky-middle));
+  color: var(--off-white);
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 0 var(--ground-clouds);
+}
+
+/* Pulsing glow animation */
+.nav-link.back-home.pulse::before {
+  content: '';
+  position: absolute;
+  top: -10%;
+  left: -10%;
+  width: 120%;
+  height: 120%;
+  background: radial-gradient(circle, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 70%);
+  border-radius: 50px;
+  animation: pulse-glow 1.8s infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes pulse-glow {
+  0% { transform: scale(0.8); opacity: 0.6; }
+  50% { transform: scale(1); opacity: 0.2; }
+  100% { transform: scale(0.8); opacity: 0.6; }
+}
+
+/* Ensure text stays on top of glow */
+.nav-link.back-home span {
+  position: relative;
+  z-index: 1;
+}
+
+
+
+  </style>
+</head>
+<body>
+  <header class="smart-header">
+  <div class="logo-pixel">
+    <div class="pixel-grid">
+      <div class="px glow"></div>
+      <div class="px dark"></div>
+      <div class="px"></div>
+      <div class="px dark"></div>
+      <div class="px dark"></div>
+      <div class="px"></div>
+      <div class="px glow"></div>
+      <div class="px"></div>
+      <div class="px"></div>
+      <div class="px dark"></div>
+      <div class="px"></div>
+      <div class="px glow"></div>
+      <div class="px dark"></div>
+      <div class="px glow"></div>
+      <div class="px dark"></div>
+      <div class="px"></div>
+    </div>
+    <span class="logo-title">
+      SMART<br>ASSISTANT
+    </span>
+  </div>
+
+  <!-- Only Back to Home button -->
+  <a href="website.html" class="nav-link back-home">🏠 Back to Home</a>
+</header>
+
+  <section class="hero-section">
+    <div class="hero-card">
+      <div class="hero-grid">
+
+        <!-- LEFT SIDE (description) -->
+        <div class="desc-panel" id="descPanel">
+          <span class="module-badge" id="slideBadge">🍅 POMODORO</span>
+          <span class="sub-slide-indicator" id="subSlideIndicator">1/2</span>
+
+          <h2 class="desc-title" id="slideTitle">
+            Time focus
+          </h2>
+
+          <div class="desc-text" id="slideDesc">
+            25 min work · 5 min break
+          </div>
+
+          <div class="slide-indicator" id="slideCounter">
+            1 / 7
+          </div>
+          
+          <div class="auto-play-toggle">
+            <span>Auto-play</span>
+            <button class="play-pause-btn" id="playPauseBtn">⏸️ Pause</button>
+          </div>
+        </div>
+
+        <!-- RIGHT SIDE (image & controls) -->
+        <div class="image-panel">
+          <div class="image-container" id="imageContainer">
+            <img id="slideImage" src="webassets/pomo1.png" alt="module preview">
+          </div>
+
+          <div class="image-slider-controls">
+            <button class="slide-arrow" id="prevModuleBtn">←</button>
+            <div class="dot-row" id="moduleDotRow"></div>
+            <button class="slide-arrow" id="nextModuleBtn">→</button>
+          </div>
+          
+          <!-- Sub-slide dots (for images within module) -->
+          <div class="sub-dot-row" id="subDotRow">
+            <span class="dot sub-dot active" data-sub="0"></span>
+            <span class="dot sub-dot" data-sub="1"></span>
+          </div>
+          
+          <div class="image-slider-controls" style="margin-top: 0.5rem;">
+            <button class="slide-arrow small" id="prevSubSlideBtn">←</button>
+            <span style="font-weight: 600; color: #A67B5B;">image</span>
+            <button class="slide-arrow small" id="nextSubSlideBtn">→</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // ---- 7 MODULES each with 2 images (total 14 slides) ----
+    
+    const modules = [
+      {
+        badge: '🍅 POMODORO',
+        title: 'Girly Timer',
+        baseDesc: 'Your little girl assistant types during work sessions and curls up for a peaceful nap when break time begins.',
+        images: [
+          { img: 'webassets/pomo3.png', desc: 'Focus mode active · Timer running' },
+          { img: 'webassets/pomo22.png', desc: 'Break time · Stretch & purr' }
+        ]
+      },
+      {
+        badge: '🔔 NOTIFICATION',
+        title: 'Girly Alerts',
+        baseDesc: 'Gentle reminders · meow when it’s time.',
+        images: [
+          { img: 'webassets/notif21.png', desc: 'New notification · Task reminder' },
+          { img: 'webassets/notif21.png', desc: 'Alert settings · ' }
+        ]
+      },
+      {
+        badge: '☁️ WEATHER',
+        title: 'GirlCast',
+        baseDesc: 'Local forecast & mood.',
+        images: [
+          { img: 'webassets/weather21.png', desc: 'Sunny day · 24°C · Perfect for napping' },
+          { img: 'webassets/weather22.png', desc: 'Rainy · 18°C · Cozy indoors' }
+        ]
+      },
+      {
+        badge: '🎵 MUSIC',
+        title: 'Girly Beats',
+        baseDesc: 'Lo-fi & purr tones.',
+        images: [
+          { img: 'webassets/music1.png', desc: 'Now playing · Relaxing piano' },
+          { img: 'webassets/music2.png', desc: 'Playlist · Girly vibes only' }
+        ]
+      },
+      {
+        badge: '✅ TODO LIST',
+        title: 'Girly Tasks',
+        baseDesc: 'Daily planner with cute stickers.',
+        images: [
+          { img: 'webassets/todo21.png', desc: '3 tasks left · work, rest, repeat' },
+          { img: 'webassets/todo22.png', desc: 'Completed · All scratched off!' }
+        ]
+      },
+      {
+        badge: '⭕ TIC TAC TOE',
+        title: 'Girly vs AI',
+        baseDesc: 'Fun little game!',
+        images: [
+          { img: 'webassets/game21.png', desc: 'Girly turn · Place your paw' },
+          { img: 'webassets/game22.png', desc: 'AI wins! · Celebration dance' }
+        ]
+      },
+      {
+        badge: '🎤 SPEECH',
+        title: 'She Mic',
+        baseDesc: 'Voice reply &  recognition.',
+        images: [
+          { img: 'webassets/listen1.png', desc: 'Listening · Say "Girl"' },
+          { img: 'webassets/listen1.png', desc: 'Responding · "HI "' }
+        ]
+      }
+    ];
+
+    let currentModule = 0;
+    let currentSubSlide = 0;
+    let autoPlayEnabled = true;
+    let autoPlayInterval = null;
+    const SUB_SLIDE_DURATION = 5000;
+
+    // DOM elements
+    const badgeEl = document.getElementById('slideBadge');
+    const titleEl = document.getElementById('slideTitle');
+    const descEl = document.getElementById('slideDesc');
+    const imgEl = document.getElementById('slideImage');
+    const counterEl = document.getElementById('slideCounter');
+    const subIndicatorEl = document.getElementById('subSlideIndicator');
+    const moduleDotRow = document.getElementById('moduleDotRow');
+    const subDotRow = document.getElementById('subDotRow');
+    const prevModuleBtn = document.getElementById('prevModuleBtn');
+    const nextModuleBtn = document.getElementById('nextModuleBtn');
+    const prevSubBtn = document.getElementById('prevSubSlideBtn');
+    const nextSubBtn = document.getElementById('nextSubSlideBtn');
+    const playPauseBtn = document.getElementById('playPauseBtn');
+    const imageContainer = document.getElementById('imageContainer');
+
+    // ---- create module dots ----
+    function renderModuleDots() {
+      moduleDotRow.innerHTML = '';
+      for (let i = 0; i < modules.length; i++) {
+        const dot = document.createElement('span');
+        dot.classList.add('dot');
+        if (i === currentModule) dot.classList.add('active');
+        dot.dataset.index = i;
+        dot.addEventListener('click', function(e) {
+          const idx = parseInt(e.target.dataset.index);
+          if (!isNaN(idx)) {
+            goToModule(idx);
+            resetAutoPlay();
+          }
+        });
+        moduleDotRow.appendChild(dot);
+      }
+    }
+
+    // ---- update sub dots ----
+    function updateSubDots() {
+      const subDots = subDotRow.querySelectorAll('.sub-dot');
+      subDots.forEach((dot, i) => {
+        if (i === currentSubSlide) dot.classList.add('active');
+        else dot.classList.remove('active');
+      });
+    }
+
+    // ---- update slide content ----
+    function goToModule(moduleIndex, subIndex = 0) {
+      currentModule = moduleIndex;
+      currentSubSlide = subIndex;
+      
+      const module = modules[currentModule];
+      const subSlide = module.images[currentSubSlide];
+
+      badgeEl.textContent = module.badge;
+      
+      titleEl.style.opacity = '0';
+      setTimeout(() => {
+        titleEl.textContent = module.title;
+        titleEl.style.opacity = '1';
+      }, 150);
+
+      const fullDesc = `${module.baseDesc} ${subSlide.desc}`;
+      descEl.style.opacity = '0';
+      setTimeout(() => {
+        descEl.textContent = fullDesc;
+        descEl.style.opacity = '1';
+      }, 150);
+
+      imgEl.style.opacity = '0';
+      setTimeout(() => {
+        imgEl.src = subSlide.img;
+        imgEl.style.opacity = '1';
+      }, 200);
+
+      counterEl.textContent = `${currentModule + 1} / ${modules.length}`;
+      subIndicatorEl.textContent = `${currentSubSlide + 1}/2`;
+
+      document.querySelectorAll('#moduleDotRow .dot').forEach((dot, i) => {
+        if (i === currentModule) dot.classList.add('active');
+        else dot.classList.remove('active');
+      });
+
+      updateSubDots();
+    }
+
+    // ---- navigation functions ----
+    function nextSubSlide() {
+      const module = modules[currentModule];
+      currentSubSlide = (currentSubSlide + 1) % module.images.length;
+      goToModule(currentModule, currentSubSlide);
+    }
+
+    function prevSubSlide() {
+      const module = modules[currentModule];
+      currentSubSlide = (currentSubSlide - 1 + module.images.length) % module.images.length;
+      goToModule(currentModule, currentSubSlide);
+    }
+
+    function nextModule() {
+      currentModule = (currentModule + 1) % modules.length;
+      currentSubSlide = 0;
+      goToModule(currentModule, currentSubSlide);
+    }
+
+    function prevModule() {
+      currentModule = (currentModule - 1 + modules.length) % modules.length;
+      currentSubSlide = 0;
+      goToModule(currentModule, currentSubSlide);
+    }
+
+    // ---- auto-play logic ----
+    function startAutoPlay() {
+      if (autoPlayInterval) clearInterval(autoPlayInterval);
+      autoPlayInterval = setInterval(() => {
+        if (autoPlayEnabled) {
+          const module = modules[currentModule];
+          if (currentSubSlide < module.images.length - 1) {
+            nextSubSlide();
+          } else {
+            nextModule();
+          }
+        }
+      }, SUB_SLIDE_DURATION);
+    }
+
+    function resetAutoPlay() {
+      if (autoPlayEnabled) {
+        startAutoPlay();
+      }
+    }
+
+    function toggleAutoPlay() {
+      autoPlayEnabled = !autoPlayEnabled;
+      if (autoPlayEnabled) {
+        playPauseBtn.textContent = '⏸️ Pause';
+        playPauseBtn.classList.remove('paused');
+        startAutoPlay();
+      } else {
+        playPauseBtn.textContent = '▶️ Play';
+        playPauseBtn.classList.add('paused');
+        if (autoPlayInterval) {
+          clearInterval(autoPlayInterval);
+          autoPlayInterval = null;
+        }
+      }
+    }
+
+    // ---- event listeners ----
+    nextModuleBtn.addEventListener('click', () => {
+      nextModule();
+      resetAutoPlay();
+    });
+    
+    prevModuleBtn.addEventListener('click', () => {
+      prevModule();
+      resetAutoPlay();
+    });
+    
+    nextSubBtn.addEventListener('click', () => {
+      nextSubSlide();
+      resetAutoPlay();
+    });
+    
+    prevSubBtn.addEventListener('click', () => {
+      prevSubSlide();
+      resetAutoPlay();
+    });
+
+    playPauseBtn.addEventListener('click', toggleAutoPlay);
+
+    // Keyboard navigation
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft' && e.shiftKey) {
+        prevModule();
+        resetAutoPlay();
+        e.preventDefault();
+      } else if (e.key === 'ArrowRight' && e.shiftKey) {
+        nextModule();
+        resetAutoPlay();
+        e.preventDefault();
+      } else if (e.key === 'ArrowLeft') {
+        prevSubSlide();
+        resetAutoPlay();
+        e.preventDefault();
+      } else if (e.key === 'ArrowRight') {
+        nextSubSlide();
+        resetAutoPlay();
+        e.preventDefault();
+      } else if (e.key === ' ' || e.key === 'Space') {
+        toggleAutoPlay();
+        e.preventDefault();
+      }
+    });
+
+    // Touch swipe
+    let touchStartX = 0;
+    let touchEndX = 0;
+    
+    document.querySelector('.hero-card').addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+    
+    document.querySelector('.hero-card').addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      const swipeDistance = touchStartX - touchEndX;
+      
+      if (Math.abs(swipeDistance) > 50) {
+        if (swipeDistance > 0) {
+          nextSubSlide();
+        } else {
+          prevSubSlide();
+        }
+        resetAutoPlay();
+      }
+    }, { passive: true });
+
+    // Initialize
+    renderModuleDots();
+    
+    // Create sub dots
+    subDotRow.innerHTML = '';
+    for (let i = 0; i < 2; i++) {
+      const dot = document.createElement('span');
+      dot.classList.add('dot', 'sub-dot');
+      if (i === 0) dot.classList.add('active');
+      dot.dataset.sub = i;
+      dot.addEventListener('click', (e) => {
+        const subIdx = parseInt(e.target.dataset.sub);
+        if (!isNaN(subIdx)) {
+          currentSubSlide = subIdx;
+          goToModule(currentModule, currentSubSlide);
+          resetAutoPlay();
+        }
+      });
+      subDotRow.appendChild(dot);
+    }
+
+    goToModule(0, 0);
+    startAutoPlay();
+
+    // Cleanup
+    window.addEventListener('beforeunload', () => {
+      if (autoPlayInterval) clearInterval(autoPlayInterval);
+    });
+  </script>
+</body>
+</html>

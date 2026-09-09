@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini Games</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: #110404;
+}
+
+.app-window {
+    font-family: "Press Start 2P", monospace;
+    width: 300px;
+    height: 300px;
+    background: url("theme2/planback.png") center/cover no-repeat;
+    background-color: #1a0808;
+    border-radius: 18px;
+    box-shadow: 0 0 30px rgba(0,0,0,0.7), inset 0 0 60px rgba(180,80,50,0.1);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding: 10px;
+    position: relative;
+    border: 1.5px solid rgba(244,180,140,0.2);
+}
+
+/* ── HOME BUTTON ── */
+.home-btn {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: none;
+    background: #c0785a;
+    color: white;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    z-index: 10;
+    text-decoration: none;
+}
+.home-btn:hover { background: #e8c06e; transform: scale(0.95); }
+
+/* ── HOME SCREEN ── */
+.home-screen {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+}
+
+.home-title {
+    color: #f4c8b0;
+    font-size: 10px;
+    text-align: center;
+    margin-bottom: 4px;
+    letter-spacing: 1px;
+}
+
+.game-btn {
+    background: rgba(244,166,110,0.08);
+    border: 1.5px solid rgba(244,166,110,0.35);
+    border-radius: 10px;
+    padding: 9px 12px;
+    color: #f4c8b0;
+    font-family: "Press Start 2P", monospace;
+    font-size: 8px;
+    cursor: pointer;
+    width: 200px;
+    text-align: center;
+    transition: all 0.2s;
+}
+.game-btn:hover {
+    background: rgba(244,166,110,0.18);
+    border-color: #f4a66e;
+    transform: translateY(-2px);
+    color: #e8c06e;
+}
+
+/* ── TTT SELECTION ── */
+.selection-screen {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 28px;
+}
+
+.game-title {
+    color: #e8c06e;
+    font-size: 9px;
+    text-align: center;
+    margin-bottom: 14px;
+    letter-spacing: 1px;
+}
+
+.characters-grid { display: flex; gap: 16px; margin-bottom: 12px; }
+
+.character-option {
+    background: rgba(244,166,110,0.08);
+    border: 1.5px solid rgba(244,166,110,0.2);
+    border-radius: 10px;
+    padding: 10px;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+.character-option:hover {
+    background: rgba(232,192,110,0.12);
+    border-color: #e8c06e;
+    transform: translateY(-2px);
+}
+.character-option.selected {
+    border-color: #c0785a;
+    background: rgba(192,120,90,0.15);
+}
+
+.character-img {
+    width: 55px;
+    height: 55px;
+    object-fit: contain;
+}
+
+.char-emoji {
+    font-size: 34px;
+    line-height: 1;
+}
+
+.char-label { color: #f4c8b0; font-size: 8px

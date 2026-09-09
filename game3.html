@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe Game</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+.app-window {
+    font-family: "Press Start 2P", monospace;
+
+    width: 300px;
+    height: 300px;
+    background: url("theme3/plan3.png") center/cover no-repeat;
+    border-radius: 18px;
+    box-shadow: 0 0 25px rgba(0,0,0,0.6);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding: 10px;
+}
+
+/* Selection Screen */
+.selection-screen {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+}
+
+.game-title {
+    color: #e4e570;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 15px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+.characters-grid {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 15px;
+}
+
+.character-option {
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid transparent;
+    border-radius: 10px;
+    padding: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.character-option:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+.character-option.selected {
+    border-color: #eb8f68;
+    background: rgba(76, 175, 80, 0.1);
+}
+
+.character-img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    margin-bottom: 5px;
+}
+
+.char-label {
+    color: rgb(9, 77, 114);
+    
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.instructions {
+    color: #e4e570;
+    font-size: 12px;
+    text-align: center;
+    margin-top: 10px;
+}
+
+/* Game Screen */
+.game-screen {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.game-header {
+    padding: 5px 0;
+    margin-bottom: 10px;
+}
+
+.current-player {
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 8px;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.current-player span {
+    color: #f0ce9a;
+}
+
+.player-info {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    color: white;
+    font-size: 11px;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.player-icon {
+    width: 20px;
+    height: 20px;
+    margin: 0 5px;
+}
+
+/* Game Board */
+.game-board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 4px;
+    flex: 1;
+    margin: 5px 0;
+}
+
+.cell {
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.cell:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.cell-content {
+    width: 60%;
+    height: 60%;
+    object-fit: contain;
+}
+
+/* Game Footer */
+.game-footer {
+    display: flex;
+    gap: 5px;
+    padding-top: 5px;
+}
+
+.restart-btn, .change-char-btn {
+    flex: 1;
+    padding: 8px;
+    border: none;
+    border-radius: 5px;
+    font-size: 11px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.restart-btn {
+    background: #e7a97e;
+    color: white;
+}
+
+.restart-btn:hover {
+    background: #faba8c
+}
+
+.change-char-btn {
+    background: #5749ef;
+    color: white;
+}
+
+.change-char-btn:hover {
+    background: #f57c00;
+}
+    </style>
+    <link rel="stylesheet" href="global-reminders.css">
+</head>
+<body>
+    <div class="app-window">
+        <!-- Character Selection Screen -->
+        <div class="selection-screen" id="selectionScreen">
+            <div class="game-title">CHOOSE YOUR CHARACTER</div>
+            <div class="characters-grid">
+                <div class="character-option" data-char="x">
+                    <img src="theme3/tac.gif" alt="X Character" class="character-img">
+                    <div class="char-label">X Character</div>
+                </div>
+                <div class="character-option" data-char="o">
+                    <img src="theme3/tic.gif" alt="O Character" class="character-img">
+                    <div class="char-label">O Character</div>
+                    
+                </div>
+            </div>
+            <div class="instructions">Select a character to start the game!</div>
+        </div>
+
+        <!-- Game Screen -->
+        <div class="game-screen" id="gameScreen" style="display: none;">
+            <div class="game-header">
+                <div class="current-player">
+                    Current Turn: <span id="currentPlayer">X</span>
+                </div>
+                <div class="player-info">
+                    You: <img src="theme3/tac.gif" alt="Player" class="player-icon" id="playerIcon">
+                    AI: <img src="theme3/tic.gif" alt="AI" class="player-icon" id="aiIcon">
+                </div>
+            </div>
+            
+            <div class="game-board" id="gameBoard">
+                <!-- Tic Tac Toe cells will be generated by JS -->
+            </div>
+            
+            <div class="game-footer">
+                <button class="restart-btn" id="restartBtn">Restart Game</button>
+                <button class="change-char-btn" id="changeCharBtn">Change Character</button>
+            </div>
+        </div>
+    </div>
+
+    
+    <script src="global-reminders.js"></script>
+</body>
+<script>
+// Game variables
+let currentPlayer = 'X';
+let playerChar = 'X';
+let aiChar = 'O';
+let gameBoard = ['', '', '', '', '', '', '', '', ''];
+let gameActive = true;
+
+// DOM Elements
+const selectionScreen = document.getElementById('selectionScreen');
+const gameScreen = document.getElementById('gameScreen');
+const characterOptions = document.querySelectorAll('.character-option');
+const gameBoardElement = document.getElementById('gameBoard');
+const currentPlayerElement = document.getElementById('currentPlayer');
+const playerIcon = document.getElementById('playerIcon');
+const aiIcon = document.getElementById('aiIcon');
+const restartBtn = document.getElementById('restartBtn');
+const changeCharBtn = document.getElementById('changeCharBtn');
+
+// Character selection
+characterOptions.forEach(option => {
+    option.addEventListener('click', () => {
+        characterOptions.forEach(opt => opt.classList.remove('selected'));
+        option.classList.add('selected');
+        
+        playerChar = option.dataset.char.toUpperCase();
+        aiChar = playerChar === 'X' ? 'O' : 'X';
+        
+        // Update icons - FIXED
+        playerIcon.src = playerChar === 'X' ? `theme3/tac.gif` : `theme3/tic.gif`;
+        aiIcon.src = aiChar === 'X' ? `theme3/tac.gif` : `theme3/tic.gif`;
+
+        // Switch to game screen after a delay
+        setTimeout(() => {
+            selectionScreen.style.display = 'none';
+            gameScreen.style.display = 'flex';
+            initializeGame();
+        }, 300);
+    });
+});
+
+// Initialize game
+function initializeGame() {
+    currentPlayer = playerChar;
+    gameBoard = ['', '', '', '', '', '', '', '', ''];
+    gameActive = true;
+    currentPlayerElement.textContent = currentPlayer;
+    currentPlayerElement.style.color = currentPlayer === playerChar ? '#4CAF50' : '#ff9800';
+    
+    // Clear and recreate game board
+    gameBoardElement.innerHTML = '';
+    for (let i = 0; i < 9; i++) {
+        const cell = document.createElement('div');
+        cell.className = 'cell';
+        cell.dataset.index = i;
+        
+        const cellContent = document.createElement('img');
+        cellContent.className = 'cell-content';
+        cell.appendChild(cellContent);
+        
+        cell.addEventListener('click', () => handleCellClick(i));
+        gameBoardElement.appendChild(cell);
+    }
+}
+
+// Handle cell click
+function handleCellClick(index) {
+    if (!gameActive || gameBoard[index] !== '' || currentPlayer !== playerChar) return;
+    
+    makeMove(index, playerChar);
+    
+    if (checkWinner()) {
+        setTimeout(() => alert('You win! 🎉'), 100);
+        return;
+    }
+    
+    if (checkDraw()) {
+        setTimeout(() => alert('Game ended in a draw! 🤝'), 100);
+        return;
+    }
+    
+    // AI move
+    currentPlayer = aiChar;
+    currentPlayerElement.textContent = currentPlayer;
+    currentPlayerElement.style.color = '#ff9800';
+    
+    setTimeout(makeAIMove, 500);
+}
+
+// Make a move - FIXED
+function makeMove(index, player) {
+    gameBoard[index] = player;
+    const cell = gameBoardElement.children[index];
+    const img = cell.querySelector('.cell-content');
+    // FIXED: Use correct image based on player
+    img.src = player === 'X' ? `theme3/tac.gif` : `theme3/tic.gif`;
+    img.style.display = 'block';
+    
+    cell.style.pointerEvents = 'none';
+    cell.style.background = player === playerChar ? 'rgba(76, 175, 80, 0.2)' : 'rgba(255, 152, 0, 0.2)';
+}
+
+// AI move logic
+function makeAIMove() {
+    if (!gameActive || currentPlayer !== aiChar) return;
+    
+    // Simple AI: Try to win, then block, then random move
+    let moveIndex = -1;
+    
+    // Check for winning move
+    moveIndex = findWinningMove(aiChar);
+    
+    // Check for blocking move
+    if (moveIndex === -1) {
+        moveIndex = findWinningMove(playerChar);
+    }
+    
+    // Random move
+    if (moveIndex === -1) {
+        const emptyCells = gameBoard
+            .map((cell, index) => cell === '' ? index : null)
+            .filter(index => index !== null);
+        
+        if (emptyCells.length > 0) {
+            moveIndex = emptyCells[Math.floor(Math.random() * emptyCells.length)];
+        }
+    }
+    
+    if (moveIndex !== -1) {
+        makeMove(moveIndex, aiChar);
+        
+        if (checkWinner()) {
+            setTimeout(() => alert('AI wins! 🤖'), 100);
+            return;
+        }
+        
+        if (checkDraw()) {
+            setTimeout(() => alert('Game ended in a draw! 🤝'), 100);
+            return;
+        }
+        
+        currentPlayer = playerChar;
+        currentPlayerElement.textContent = currentPlayer;
+        currentPlayerElement.style.color = '#4CAF50';
+    }
+}
+
+// Find winning move for a player
+function findWinningMove(player) {
+    const winPatterns = [
+        [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
+        [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columns
+        [0, 4, 8], [2, 4, 6]             // Diagonals
+    ];
+    
+    for (const pattern of winPatterns) {
+        const [a, b, c] = pattern;
+        if (gameBoard[a] === player && gameBoard[b] === player && gameBoard[c] === '') return c;
+        if (gameBoard[a] === player && gameBoard[c] === player && gameBoard[b] === '') return b;
+        if (gameBoard[b] === player && gameBoard[c] === player && gameBoard[a] === '') return a;
+    }
+    
+    return -1;
+}
+
+// Check for winner
+function checkWinner() {
+    const winPatterns = [
+        [0, 1, 2], [3, 4, 5], [6, 7, 8],
+        [0, 3, 6], [1, 4, 7], [2, 5, 8],
+        [0, 4, 8], [2, 4, 6]
+    ];
+    
+    for (const pattern of winPatterns) {
+        const [a, b, c] = pattern;
+        if (gameBoard[a] && gameBoard[a] === gameBoard[b] && gameBoard[a] === gameBoard[c]) {
+            gameActive = false;
+            
+            // Highlight winning cells
+            pattern.forEach(index => {
+                const cell = gameBoardElement.children[index];
+                cell.style.background = gameBoard[a] === playerChar ? 
+                    'rgba(76, 175, 80, 0.4)' : 'rgba(255, 152, 0, 0.4)';
+                cell.style.borderColor = gameBoard[a] === playerChar ? '#4CAF50' : '#ff9800';
+            });
+            
+            return true;
+        }
+    }
+    return false;
+}
+
+// Check for draw
+function checkDraw() {
+    if (!gameBoard.includes('')) {
+        gameActive = false;
+        return true;
+    }
+    return false;
+}
+
+// Event listeners for buttons
+restartBtn.addEventListener('click', () => {
+    initializeGame();
+});
+
+changeCharBtn.addEventListener('click', () => {
+    gameScreen.style.display = 'none';
+    selectionScreen.style.display = 'flex';
+});
+
+// Initialize first character selection
+characterOptions[0].classList.add('selected');
+</script>
+</html>

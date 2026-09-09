@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather Report</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="theme2.css">
+  <style>
+    /* WEATHER PAGE SPECIFIC STYLES */
+
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      /* center window on screen only */
+      /* justify-content: center; */
+      /* align-items: center; */
+      /* background: #5e5a9e; */
+      font-family: 'Press Start 2P', monospace;
+    }
+
+    /* =========================
+   WEATHER WINDOW
+========================= */
+    .weather-box {
+      width: 300px;
+      height: 300px;
+      background: url('theme2/planback.png') center/cover no-repeat;
+      box-shadow: 0 0 25px rgba(0, 0, 0, 0.6);
+      border-radius: 20px;
+
+      position: relative;
+      /* anchor absolute elements */
+      padding: 12px;
+      overflow: hidden;
+    }
+
+    /* =========================
+   HEADER (TOP)
+========================= */
+    .weather-header {
+      text-align: center;
+      padding-bottom: 6px;
+      border-bottom: 1px dashed #99b1a1;
+    }
+
+    .weather-title {
+      font-size: 10px;
+      color: #ffcc00;
+      text-shadow: 1px 1px 0 #000;
+      margin-bottom: 4px;
+    }
+
+    .location {
+      font-size: 12px;
+      color: #1a0b3b;
+    }
+
+    /* =========================
+   MAIN WEATHER SECTION
+========================= */
+    .main-weather {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 6px;
+      margin-top: 6px;
+    }
+
+    /* TEMP + CONDITION */
+    .temp-display {
+      text-align: left;
+    }
+
+    .current-temp {
+      font-size: 30px;
+      color: #ffcc00;
+      text-shadow: 2px 2px 0 #000;
+      margin-bottom: 4px;
+    }
+
+    .current-condition {
+      font-size: 7px;
+      color: #d1c4e9;
+      text-transform: uppercase;
+    }
+
+    /* =========================
+   WEATHER GIF (FLOATING)
+========================= */
+    .weather-gif {
+      width: 110px;
+      position: absolute;
+      top: 38px;
+      right: 6px;
+      image-rendering: pixelated;
+      pointer-events: none;
+    }
+
+    /* =========================
+   FORECAST BUBBLE
+========================= */
+    .forecast-bubble {
+      position: absolute;
+      top: 150px;
+      left: 10px;
+      right: 10px;
+
+      background: rgba(0, 0, 0, 0.7);
+      border: 2px solid #6c65a8;
+      border-radius: 15px;
+      padding: 8px;
+      text-align: center;
+    }
+
+    .forecast-title {
+      color: #99b1a1;
+      font-size: 9px;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+
+    .forecast-days {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .forecast-day {
+      flex: 1;
+    }
+
+    .day-name {
+      font-size: 9px;
+      color: #ffcc00;
+      margin-bottom: 4px;
+    }
+
+    .forecast-temp {
+      font-size: 12px;
+      color: white;
+    }
+
+    .forecast-condition {
+      font-size: 7px;
+      color: #d1c4e9;
+    }
+
+    /* =========================
+   DETAILS BAR
+========================= */
+    .details-bar {
+      position: absolute;
+      bottom: 55px;
+      left: 10px;
+      right: 10px;
+
+      display: flex;
+      justify-content: space-around;
+      background: rgba(108, 101, 168, 0.3);
+      padding: 8px;
+      border-radius: 12px;
+      border: 2px solid #99b1a1;
+    }
+
+    .detail-item {
+      text-align: center;
+    }
+
+    .detail-label {
+      font-size: 7px;
+      color: #010000;
+    }
+
+    .detail-value {
+      font-size: 11px;
+      padding: auto;
+      color: #ffcc00;
+    }
+
+    /* =========================
+   BACK BUTTON (BOTTOM)
+========================= */
+    .back-button {
+      position: absolute;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+
+      background: #99b1a1;
+      color: #1a0b3b;
+      border: 2px solid #ffe3e3;
+      padding: 8px 20px;
+      border-radius: 12px;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 9px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .back-button:hover {
+      transform: translateX(-50%) scale(1.05);
+    }
+
+    /* =========================
+   DECORATIVE PIXELS
+========================= */
+    .pixel-stars {
+      position: absolute;
+      top: 10px;
+      left: 14px;
+      font-size: 12px;
+      color: #ffcc00;
+      opacity: 0.6;
+    }
+
+    .pixel-border {
+      position: absolute;
+      inset: 0;
+      border: 4px solid rgba(255, 204, 0, 0.25);
+      border-radius: 20px;
+      pointer-events: none;
+    }
+
+    /* =========================
+   LOADING STATE
+========================= */
+    .loading {
+      text-align: center;
+      padding-top: 120px;
+      font-size: 12px;
+      color: #99b1a1;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="weather-box">
+    <div class="pixel-stars">✦ ✦ ✦ ✦ ✦</div>
+    <div class="pixel-border"></div>
+
+    <!-- HEADER -->
+    <div class="weather-header">
+      <div class="weather-title">WEATHER REPORT</div>
+      <div class="location" id="cityName">Loading...</div>
+    </div>
+
+    <!-- MAIN WEATHER -->
+    <div class="main-weather">
+      <div class="temp-display">
+        <div class="current-temp" id="currentTemp">--°C</div>
+        <div class="current-condition" id="currentCondition">Loading...</div>
+      </div>
+      <img id="weatherGif" class="weather-gif" src="" alt="Weather GIF">
+    </div>
+
+    <!-- DETAILS BAR -->
+    <div class="details-bar">
+      <div class="detail-item">
+        <div class="detail-label">HUMIDITY</div>
+        <div class="detail-value" id="humidity">--%</div>
+      </div>
+      <div class="detail-item">
+        <div class="detail-label">WIND</div>
+        <div class="detail-value" id="windSpeed">-- m/s</div>
+      </div>
+      <div class="detail-item">
+        <div class="detail-label">FEELS LIKE</div>
+        <div class="detail-value" id="feelsLike">--°C</div>
+      </div>
+    </div>
+
+    <!-- 3-DAY FORECAST -->
+    <div class="forecast-bubble">
+      <div class="forecast-title">3-DAY FORECAST</div>
+      <div class="forecast-days" id="forecastContainer">
+        <!-- Forecast will be populated by JavaScript -->
+        <div class="forecast-day">
+          <div class="day-name">--</div>
+          <div class="forecast-temp">--°C</div>
+          <div class="forecast-condition">--</div>
+        </div>
+        <div class="forecast-day">
+          <div class="day-name">--</div>
+          <div class="forecast-temp">--°C</div>
+          <div class="forecast-condition">--</div>
+        </div>
+        <div class="forecast-day">
+          <div class="day-name">--</div>
+          <div class="forecast-temp">--°C</div>
+          <div class="forecast-condition">--</div>
+        </div>
+      </div>
+    </div>
+
+    <button class="back-button" onclick="goBack()">← BACK TO SEARCH</button>
+  </div>
+
+  <script>
+   const OPENWEATHER_API_KEY = "";
+
+    const params = new URLSearchParams(window.location.search);
+    const city = params.get("city");
+
+    if (!city) {
+      alert("No city received!");
+      window.location.href = "index.html";
+    }
+
+    // Function to get GIF based on condition
+    function getWeatherGif(condition) {
+      const cond = condition.toLowerCase();
+
+      if (cond.includes("cloud")) return "theme2/clouds.gif";
+      else if (cond.includes("rain") || cond.includes("drizzle")) return "theme2/rain.gif";
+      else if (cond.includes("thunder") || cond.includes("storm")) return "theme2/thunder.gif";
+      else if (cond.includes("wind")) return "theme2/wind.gif";
+      else if (cond.includes("snow")) return "theme2/snow.gif";
+      else if (cond.includes("clear") || cond.includes("sun")) return "theme2/sunny.gif";
+      else if (cond.includes("fog") || cond.includes("mist") || cond.includes("haze") || cond.includes("smoke") || cond.includes("dust")) return "theme2/haze.gif";
+
+      return "theme2/sunny.gif";
+    }
+
+    // Function to generate random forecast for next 2 days
+    function generateForecast(currentTemp, currentCondition) {
+      const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+      const conditions = ["Sunny", "Cloudy", "Rain", "Wind", "Partly Cloudy", "Clear"];
+
+      const today = new Date();
+      const forecast = [];
+
+      for (let i = 1; i <= 2; i++) {
+        const dayIndex = (today.getDay() + i) % 7;
+        const dayName = days[dayIndex];
+
+        // Generate temperature within ±5°C of current
+        const tempVariation = Math.floor(Math.random() * 11) - 5;
+        const forecastTemp = Math.round(currentTemp + tempVariation);
+
+        // Pick a random condition (can be same or different)
+        const randomCondition = conditions[Math.floor(Math.random() * conditions.length)];
+
+        forecast.push({
+          day: dayName,
+          temp: forecastTemp,
+          condition: randomCondition
+        });
+      }
+
+      return forecast;
+    }
+
+    // Fetch current weather
+    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${OPENWEATHER_API_KEY}`)
+      .then(res => {
+        if (!res.ok) throw new Error("City not found");
+        return res.json();
+      })
+      .then(data => {
+        // Update current weather
+        document.getElementById("cityName").innerText = data.name;
+        document.getElementById("currentTemp").innerText = `${Math.round(data.main.temp)}°C`;
+        document.getElementById("currentCondition").innerText = data.weather[0].main;
+        document.getElementById("humidity").innerText = `${data.main.humidity}%`;
+        document.getElementById("windSpeed").innerText = `${data.wind.speed} m/s`;
+        document.getElementById("feelsLike").innerText = `${Math.round(data.main.feels_like)}°C`;
+
+        // Set GIF
+        const gif = document.getElementById("weatherGif");
+        gif.src = getWeatherGif(data.weather[0].main);
+        gif.style.display = "block";
+
+        // Generate and display forecast
+        const forecast = generateForecast(data.main.temp, data.weather[0].main);
+        const today = new Date();
+        const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+
+        document.getElementById("forecastContainer").innerHTML = `
+      <div class="forecast-day">
+        <div class="day-name">${days[today.getDay()]}</div>
+        <div class="forecast-temp">${Math.round(data.main.temp)}°C</div>
+        <div class="forecast-condition">${data.weather[0].main}</div>
+      </div>
+      <div class="forecast-day">
+        <div class="day-name">${forecast[0].day}</div>
+        <div class="forecast-temp">${forecast[0].temp}°C</div>
+        <div class="forecast-condition">${forecast[0].condition}</div>
+      </div>
+      <div class="forecast-day">
+        <div class="day-name">${forecast[1].day}</div>
+        <div class="forecast-temp">${forecast[1].temp}°C</div>
+        <div class="forecast-condition">${forecast[1].condition}</div>
+      </div>
+    `;
+      })
+      .catch(err => {
+        alert(err.message);
+        window.location.href = "weathertheme2.html";
+      });
+
+    function goBack() {
+      window.location.href = "weathertheme2.html";
+    }
+
+    // Add some pixel animation
+    document.addEventListener('DOMContentLoaded', () => {
+      const stars = document.querySelector('.pixel-stars');
+      if (stars) {
+        setInterval(() => {
+          stars.style.opacity = Math.random() * 0.3 + 0.4;
+        }, 1000);
+      }
+    });
+  </script>
+
+</body>
+
+</html>

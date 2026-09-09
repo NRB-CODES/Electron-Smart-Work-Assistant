@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Desktop App UI</title>
+
+    <!-- Google Pixel Font -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="theme3.css">
+    <link rel="stylesheet" href="global-reminders.css">
+</head>
+
+<body>
+
+<div class="app-window">
+
+    <!-- TOP CONTENT -->
+    <div class="content-area">
+        <p class="assistant-text" id="typing-text"></p>
+
+        <img src="theme3/main3.gif" class="center-gif" alt="Cat GIF">
+
+        <div class="input-wrapper">
+            <button class="mic-btn">
+                <img src="assets/mic.png" alt="Mic">
+            </button>
+
+            <input
+                type="text"
+                class="command-input"
+                placeholder="Type command..."
+            >
+        </div>
+    </div>
+
+    <!-- BOTTOM MOST BUTTON BAR -->
+    <div class="bottom-buttons">
+        <button class="icon-btn"><a href="pomo3.html"><img src="assets/pomodoropng.png" alt="Pomodoro"></a></button>
+        <button class="icon-btn"><a href="reminder.html"><img src="assets/reminderpngg.png" alt="Reminder"></a></button>
+        <button class="icon-btn"><a href="weather3.html"><img src="assets/weather.png" alt="Weather"></a></button>
+        <button class="icon-btn"><a href="music.html"><img src="assets/musicpng.png" alt="Music"></a></button>
+        <button class="icon-btn"><a href="todolist3.html"><img src="assets/todolistpng.png" alt="To-Do List"></a></button>
+        <button class="icon-btn"><a href="game3.html"><img src="assets/gamepng.png" alt="Game"></a></button>
+    </div>
+
+</div>
+
+<!-- Typing Effect -->
+
+<script>
+const slider = document.getElementById("slider");
+
+setInterval(() => {
+  const first = slider.firstElementChild;
+
+  slider.style.transition = "transform 0.6s ease";
+  slider.style.transform = "translateX(-90px)";
+
+  setTimeout(() => {
+    slider.style.transition = "none";
+    slider.style.transform = "translateX(0)";
+    slider.appendChild(first); // 👈 move 1st to end
+  }, 600);
+
+}, 2000);
+</script>
+
+    <script src="global-reminders.js"></script>
+</body>
+</html>

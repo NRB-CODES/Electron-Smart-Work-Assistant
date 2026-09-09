@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>WellnessWave | Health & Productivity Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Press Start 2P', cursive;
+        }
+
+        body {
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: flex-start;
+            align-items: flex-start;
+            padding: 20px;
+            background-image: url('background.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            position: relative;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 320px;
+            margin: 0;
+        }
+
+        .wellness-container {
+            width: 300px;
+            height: 300px;
+            background: url("assets/planback.png") center/cover no-repeat;
+            border-radius: 18px;
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.6);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            padding: 10px;
+            position: relative;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+
+        .home-btn {
+            position: absolute;
+
+            top: -5px;
+            /* yaha change karo */
+            left: 1px;
+
+            width: 24px;
+            height: 24px;
+
+            border-radius: 50%;
+            border: none;
+
+            background: #99b1a1;
+            color: white;
+
+            font-family: 'Press Start 2P', cursive;
+            font-size: 10px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            cursor: pointer;
+            text-decoration: none;
+
+            transition: all 0.25s ease;
+        }
+
+        .home-btn:hover {
+            background: #619170;
+            transform: scale(1.1);
+        }
+
+        .home-btn:active {
+            transform: scale(0.95);
+        }
+
+        .home-btn:hover {
+            background: linear-gradient(135deg, #c8e6d2, #f5c6d6);
+            transform: scale(1.12) rotate(-3deg);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+        }
+
+        .home-btn:active {
+            transform: scale(0.95);
+        }
+
+        .status-badge {
+            background: #74E89B;
+            border: none;
+            border-radius: 3px;
+            padding: 3px 6px;
+            color: #1a1a2e;
+            font-size: 6px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-left: auto;
+        }
+
+        .scroll-content {
+            flex: 1;
+            overflow-y: auto;
+            padding-right: 3px;
+            margin-top: 5px;
+        }
+
+        .scroll-content::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .scroll-content::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .scroll-content::-webkit-scrollbar-thumb {
+            background: #FF77E9;
+            border-radius: 10px;
+        }
+
+        .wellness-section {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 12px;
+            padding: 10px;
+            margin-bottom: 12px;
+            border-left: 3px solid #74E89B;
+            transition: all 0.2s ease;
+        }
+
+        .wellness-section:hover {
+            background: rgba(0, 0, 0, 0.6);
+            transform: translateX(2px);
+        }
+
+        .section-title {
+            font-size: 9px;
+            color: #FFD152;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .reminder-btn {
+            background: #74E89B;
+            border: none;
+            border-radius: 3px;
+            padding: 6px 8px;
+            color: #1a1a2e;
+            font-size: 7px;
+            cursor: pointer;
+            margin-top: 6px;
+            width: 100%;
+            font-family: 'Press Start 2P', cursive;
+            transition: all 0.2s ease;
+        }
+
+        .reminder-btn:hover {
+            background: #5CD489;
+            transform: translateY(-1px);
+        }
+
+        .weather-display {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 8px 0;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px;
+            border-radius: 8px;
+        }
+
+        .weather-temp {
+            font-size: 18px;
+            color: #92C9FF;
+            font-weight: bold;
+        }
+
+        .weather-desc {
+            font-size: 6px;
+            color: #B07BAC;
+            margin-top: 4px;
+        }
+
+        .weather-icon {
+            font-size: 32px;
+        }
+
+        .todo-list {
+            max-height: 140px;
+            overflow-y: auto;
+            margin: 8px 0;
+        }
+
+        .todo-list::-webkit-scrollbar {
+            width: 3px;
+        }
+
+        .todo-item {
+            display: flex;
+            align-items: center;
+            padding: 6px;
+            margin: 5px 0;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            gap: 6px;
+            font-size: 7px;
+            transition: all 0.2s ease;
+        }
+
+        .todo-item:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .todo-checkbox {
+            width: 14px;
+            height: 14px;
+            cursor: pointer;
+            accent-color: #74E89B;
+        }
+
+        .todo-text {
+            flex: 1;
+            font-size: 7px;
+            color: #fff;
+            word-break: break-word;
+        }
+
+        .todo-deadline {
+            font-size: 6px;
+            color: #FFD152;
+            white-space: nowrap;
+        }
+
+        .todo-delete {
+            background: #E32D2D;
+            border: none;
+            border-radius: 3px;
+            padding: 2px 5px;
+            color: white;
+            font-size: 6px;
+            cursor: pointer;
+            font-family: monospace;
+            transition: all 0.2s ease;
+        }
+
+        .todo-delete:hover {
+            background: #FF5555;
+        }
+
+        .add-todo {
+            display: flex;
+            gap: 5px;
+            margin-top: 8px;
+            flex-wrap: wrap;
+        }
+
+        .add-todo input {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid #FF77E9;
+            border-radius: 4px;
+            padding: 5px;
+            color: white;
+            font-size: 6px;
+            font-family: 'Press Start 2P', cursive;
+        }
+
+        .add-todo input::placeholder {
+            color: #92C9FF;
+            font-size: 5px;
+        }
+
+        .deadline-input {
+            width: 100px;
+            font-size: 6px;
+        }
+
+        .add-todo-btn {
+            background: #74E89B;
+            border: none;
+            border-radius: 3px;
+            padding: 5px 8px;
+            cursor: pointer;
+            font-size: 7px;
+            font-family: 'Press Start 2P', cursive;
+            transition: all 0.2s ease;
+        }
+
+        .add-todo-btn:hover {
+            background: #5CD489;
+            transform: translateY(-1px);
+        }
+
+        .empty-todo {
+            text-align: center;
+            padding: 15px;
+            font-size: 6px;
+            color: #92C9FF;
+        }
+
+        .active-reminder {
+            background: rgba(116, 232, 155, 0.2);
+            border-left-color: #FFD152;
+        }
+
+        .reminder-active-badge {
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background: #74E89B;
+            border-radius: 50%;
+            margin-left: 5px;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.5;
+                transform: scale(1.2);
+            }
+        }
+
+        .footer {
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            font-size: 6px;
+            color: #92C9FF;
+        }
+
+        .notification-toast {
+            position: fixed;
+            top: 20px;
+            left: 60px;
+            background: linear-gradient(135deg, #FF77E9, #7B2CBF);
+            color: white;
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-size: 8px;
+            max-width: 260px;
+            z-index: 3000;
+            animation: slideInRight 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border-left: 4px solid #FFD152;
+            font-family: 'Press Start 2P', cursive;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .toast-fadeout {
+            animation: fadeOutRight 0.5s ease forwards;
+        }
+
+        @keyframes fadeOutRight {
+            to {
+                opacity: 0;
+                transform: translateX(100%);
+            }
+        }
+
+        .timer-info {
+            font-size: 7px;
+            color: #92C9FF;
+            margin-top: 5px;
+            text-align: center;
+        }
+
+        .current-interval {
+            font-size: 6px;
+            background: rgba(116, 232, 155, 0.3);
+            display: inline-block;
+            padding: 2px 5px;
+            border-radius: 10px;
+            margin-left: 5px;
+        }
+
+        /* --- Custom Modal --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.82);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 5000;
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-content {
+            background: #1a1a2e;
+            border: 2px solid #FF77E9;
+            border-radius: 16px;
+            padding: 20px;
+            width: 260px;
+            text-align: center;
+            box-shadow: 0 0 30px rgba(255, 119, 233, 0.3);
+            animation: modalScale 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+        }
+
+        @keyframes modalScale {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .modal-title {
+            font-size: 9px;
+            color: #FFD152;
+            margin-bottom: 15px;
+        }
+
+        .modal-input {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid #74E89B;
+            border-radius: 8px;
+            padding: 10px;
+            color: white;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .modal-btns {
+            display: flex;
+            gap: 10px;
+        }
+
+        .modal-btn {
+            flex: 1;
+            padding: 8px;
+            border-radius: 6px;
+            border: none;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 7px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .modal-btn-confirm {
+            background: #74E89B;
+            color: #1a1a2e;
+        }
+
+        .modal-btn-cancel {
+            background: #ff5555;
+            color: white;
+        }
+
+        .modal-btn:hover {
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="wellness-container">
+            <div class="header">
+                <button class="home-btn" id="homeBtn">H</button>
+                <div class="status-badge" id="reminderStatus">
+                    <span>🟢</span>
+                    <span>Active</span>
+                </div>
+            </div>
+
+            <div class="scroll-content">
+                <!-- Water Break Reminder -->
+                <div class="wellness-section" id="waterSection">
+                    <div class="section-title">
+                        <span>💧</span>
+                        <span>Water Break Reminder</span>
+                        <span id="waterActiveBadge" style="display: none;" class="reminder-active-badge"></span>
+                    </div>
+                    <button class="reminder-btn" id="waterPresetBtn">💧 Every 30 minutes</button>
+                    <button class="reminder-btn" id="waterCustomBtn">⚙️ Set Custom Interval</button>
+                    <div id="waterTimerInfo" class="timer-info"></div>
+                </div>
+
+                <!-- Screen Time Alert -->
+                <div class="wellness-section" id="screenSection">
+                    <div class="section-title">
+                        <span>👁️</span>
+                        <span>Screen Time Alert</span>
+                        <span id="screenActiveBadge" style="display: none;" class="reminder-active-badge"></span>
+                    </div>
+                    <button class="reminder-btn" id="screenPresetBtn">👁️ Every 45 minutes</button>
+                    <button class="reminder-btn" id="screenCustomBtn">⚙️ Set Custom Interval</button>
+                    <div id="screenTimerInfo" class="timer-info"></div>
+                </div>
+
+                <!-- Weather Update -->
+                <div class="wellness-section">
+                    <div class="section-title">
+                        <span>🌤️</span>
+                        <span>Weather Update</span>
+                    </div>
+                    <div class="weather-display">
+                        <div>
+                            <div class="weather-temp" id="weatherTemp">--°C</div>
+                            <div class="weather-desc" id="weatherDesc">Loading...</div>
+                        </div>
+                        <div class="weather-icon" id="weatherIcon">🌍</div>
+                    </div>
+                    <button class="reminder-btn" id="refreshWeatherBtn">🔄 Refresh Weather</button>
+                </div>
+
+                <!-- To-Do List with Deadlines -->
+                <div class="wellness-section">
+                    <div class="section-title">
+                        <span>✅</span>
+                        <span>To-Do List</span>
+                    </div>
+                    <div class="todo-list" id="todoList">
+                        <div class="empty-todo">✨ No tasks yet</div>
+                    </div>
+                    <div class="add-todo">
+                        <input type="text" id="todoText" placeholder="Task..." maxlength="35">
+                        <input type="datetime-local" id="todoDeadline" class="deadline-input">
+                        <button class="add-todo-btn" id="addTodoBtn">+ Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer">
+                <span>💚 Stay healthy & productive</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Interval Modal -->
+    <div id="customIntervalModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-title" id="modalTitle">Custom Interval</div>
+            <input type="number" id="modalInput" class="modal-input" placeholder="Minutes..." min="1" max="1440">
+            <div class="modal-btns">
+                <button class="modal-btn modal-btn-cancel" id="modalCancel">Cancel</button>
+                <button class="modal-btn modal-btn-confirm" id="modalConfirm">Set</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // iOS-style notification sound
+        class NotificationSound {
+            constructor() {
+                this.audioContext = null;
+                this.initOnFirstInteraction();
+            }
+
+            initOnFirstInteraction() {
+                const initAudio = () => {
+                    if (!this.audioContext) {
+                        this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                        this.playSilent().catch(e => console.log('Audio init'));
+                    }
+                    document.removeEventListener('click', initAudio);
+                    document.removeEventListener('touchstart', initAudio);
+                };
+                document.addEventListener('click', initAudio);
+                document.addEventListener('touchstart', initAudio);
+            }
+
+            async playSilent() {
+                if (!this.audioContext) return;
+                const oscillator = this.audioContext.createOscillator();
+                const gain = this.audioContext.createGain();
+                oscillator.connect(gain);
+                gain.connect(this.audioContext.destination);
+                gain.gain.value = 0;
+                oscillator.start();
+                oscillator.stop(0.01);
+            }
+
+            async playIphoneNotification() {
+                try {
+                    if (!this.audioContext) {
+                        this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                        await this.audioContext.resume();
+                    } else if (this.audioContext.state === 'suspended') {
+                        await this.audioContext.resume();
+                    }
+
+                    const now = this.audioContext.currentTime;
+                    const gainNode = this.audioContext.createGain();
+                    gainNode.connect(this.audioContext.destination);
+                    gainNode.gain.value = 0.3;
+
+                    const frequencies = [880, 1100];
+
+                    frequencies.forEach((freq, index) => {
+                        const osc = this.audioContext.createOscillator();
+                        osc.type = 'sine';
+                        osc.frequency.value = freq;
+                        const oscGain = this.audioContext.createGain();
+                        osc.connect(oscGain);
+                        oscGain.connect(gainNode);
+
+                        const startTime = now + index * 0.08;
+                        oscGain.gain.setValueAtTime(0.25, startTime);
+                        oscGain.gain.exponentialRampToValueAtTime(0.0001, startTime + 0.6);
+                        osc.start(startTime);
+                        osc.stop(startTime + 0.5);
+                    });
+
+                    const bassOsc = this.audioContext.createOscillator();
+                    bassOsc.type = 'triangle';
+                    bassOsc.frequency.value = 440;
+                    const bassGain = this.audioContext.createGain();
+                    bassOsc.connect(bassGain);
+                    bassGain.connect(gainNode);
+                    bassGain.gain.setValueAtTime(0.15, now);
+                    bassGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.4);
+                    bassOsc.start(now);
+                    bassOsc.stop(now + 0.35);
+
+                } catch (e) {
+                    console.log('Sound playback failed:', e);
+                }
+            }
+        }
+
+        class WellnessWaveApp {
+            constructor() {
+                this.waterInterval = null;
+                this.waterMinutes = null;
+                this.waterNextTriggerTime = null;
+                this.screenInterval = null;
+                this.screenMinutes = null;
+                this.screenNextTriggerTime = null;
+                this.todos = this.loadTodos();
+                this.sound = new NotificationSound();
+                this.init();
+            }
+
+            init() {
+                this.syncWithBackend();
+                this.setupEventListeners();
+                this.renderTodos();
+                this.getWeather();
+                this.startAutoWeatherRefresh();
+                this.startDeadlineChecker();
+                this.startTimerDisplayUpdater();
+                this.setupIPClisteners();
+                this.checkEnvironment();
+            }
+
+            checkEnvironment() {
+                if (!window.electronAPI) {
+                    this.showNotification('⚠️ Browser Mode', 'Background reminders require the Desktop App. Use Electron for persistence.', '⚠️');
+                }
+            }
+
+            async syncWithBackend() {
+                if (window.electronAPI && window.electronAPI.reminders) {
+                    const active = await window.electronAPI.reminders.getActive('theme1');
+                    if (active.water) {
+                        this.waterMinutes = active.water.minutes;
+                        this.waterNextTriggerTime = active.water.nextTrigger;
+                        this.updateWaterUI(true);
+                    }
+                    if (active.screen) {
+                        this.screenMinutes = active.screen.minutes;
+                        this.screenNextTriggerTime = active.screen.nextTrigger;
+                        this.updateScreenUI(true);
+                    }
+                } else {
+                    this.loadReminderStates(); // Local fallback for browser
+                }
+            }
+
+            setupIPClisteners() {
+                if (window.electronAPI && window.electronAPI.reminders) {
+                    window.electronAPI.reminders.onTriggered((data) => {
+                        // Only show toast if it's for this theme OR if we want global toasts
+                        // Let's show global toasts for better UX as requested
+                        this.showNotification(data.title, data.message, data.type === 'water' ? '💧' : '👁️');
+
+                        // If it's for this theme, refresh the UI countdown
+                        if (data.themeId === 'theme1') {
+                            this.syncWithBackend();
+                        }
+                    });
+                }
+            }
+
+            loadReminderStates() {
+                const savedWater = localStorage.getItem('wellness_water_minutes');
+                const savedScreen = localStorage.getItem('wellness_screen_minutes');
+                if (savedWater) {
+                    this.waterMinutes = parseInt(savedWater);
+                    this.startWaterReminder(this.waterMinutes);
+                    this.updateWaterButtonText(this.waterMinutes);
+                }
+                if (savedScreen) {
+                    this.screenMinutes = parseInt(savedScreen);
+                    this.startScreenReminder(this.screenMinutes);
+                    this.updateScreenButtonText(this.screenMinutes);
+                }
+            }
+
+            setupEventListeners() {
+                document.getElementById('waterPresetBtn').addEventListener('click', () => this.setWaterReminder(30));
+                document.getElementById('waterCustomBtn').addEventListener('click', () => this.customWaterReminder());
+                document.getElementById('screenPresetBtn').addEventListener('click', () => this.setScreenReminder(45));
+                document.getElementById('screenCustomBtn').addEventListener('click', () => this.customScreenReminder());
+                document.getElementById('refreshWeatherBtn').addEventListener('click', () => this.getWeather());
+                document.getElementById('addTodoBtn').addEventListener('click', () => this.addTodo());
+                document.getElementById('homeBtn').addEventListener('click', () => {
+                    window.location.href = 'index.html';
+                });
+            }
+
+            updateWaterButtonText(minutes) {
+                const waterBtn = document.getElementById('waterPresetBtn');
+                waterBtn.innerHTML = `💧 Every ${minutes} minute${minutes !== 1 ? 's' : ''}`;
+            }
+
+            updateScreenButtonText(minutes) {
+                const screenBtn = document.getElementById('screenPresetBtn');
+                screenBtn.innerHTML = `👁️ Every ${minutes} minute${minutes !== 1 ? 's' : ''}`;
+            }
+
+            async playNotificationSound() {
+                await this.sound.playIphoneNotification();
+            }
+
+            showNotification(title, message, icon = '💚') {
+                this.playNotificationSound();
+
+                const toast = document.createElement('div');
+                toast.className = 'notification-toast';
+                toast.innerHTML = `
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <span style="font-size: 20px;">${icon}</span>
+                        <div>
+                            <strong style="font-size: 9px;">${title}</strong><br>
+                            <span style="font-size: 7px;">${message}</span>
+                        </div>
+                    </div>
+                `;
+                document.body.appendChild(toast);
+
+                setTimeout(() => {
+                    toast.classList.add('toast-fadeout');
+                    setTimeout(() => toast.remove(), 500);
+                }, 5000);
+
+                if (Notification.permission === 'granted') {
+                    new Notification(title, { body: message, icon: '💚' });
+                } else if (Notification.permission !== 'denied') {
+                    Notification.requestPermission();
+                }
+            }
+
+            async startWaterReminder(minutes) {
+                this.waterMinutes = minutes;
+                localStorage.setItem('wellness_water_minutes', minutes);
+
+                if (window.electronAPI && window.electronAPI.reminders) {
+                    const res = await window.electronAPI.reminders.set({ themeId: 'theme1', type: 'water', minutes });
+                    this.waterNextTriggerTime = res.nextTrigger;
+                } else {
+                    if (this.waterInterval) clearInterval(this.waterInterval);
+                    this.waterNextTriggerTime = Date.now() + (minutes * 60 * 1000);
+                    this.waterInterval = setInterval(() => {
+                        this.showNotification('💧 Time to Hydrate!', `Take a water break! Next reminder in ${this.waterMinutes} minutes.`, '💧');
+                        this.waterNextTriggerTime = Date.now() + (this.waterMinutes * 60 * 1000);
+                    }, minutes * 60 * 1000);
+                }
+
+                this.updateWaterUI(true);
+            }
+
+            updateWaterUI(isActive) {
+                if (isActive) {
+                    document.getElementById('waterActiveBadge').style.display = 'inline-block';
+                    document.getElementById('waterSection').classList.add('active-reminder');
+                } else {
+                    document.getElementById('waterActiveBadge').style.display = 'none';
+                    document.getElementById('waterSection').classList.remove('active-reminder');
+                }
+                this.updateWaterButtonText(this.waterMinutes);
+                this.updateTimerDisplays();
+            }
+
+            setWaterReminder(minutes) {
+                this.startWaterReminder(minutes);
+                this.showNotification('💧 Reminder Set', `Water break every ${minutes} minutes`, '⏰');
+            }
+
+            customWaterReminder() {
+                this.showIntervalModal('Water Reminder (min):', (val) => {
+                    this.setWaterReminder(val);
+                });
+            }
+
+            customScreenReminder() {
+                this.showIntervalModal('Screen Break (min):', (val) => {
+                    this.setScreenReminder(val);
+                });
+            }
+
+            showIntervalModal(title, onConfirm) {
+                const modal = document.getElementById('customIntervalModal');
+                const input = document.getElementById('modalInput');
+                const confirmBtn = document.getElementById('modalConfirm');
+                const cancelBtn = document.getElementById('modalCancel');
+                const titleEl = document.getElementById('modalTitle');
+
+                titleEl.innerText = title;
+                input.value = '';
+                modal.style.display = 'flex';
+                input.focus();
+
+                const closeModal = () => {
+                    modal.style.display = 'none';
+                    // Re-clone buttons to clear old listeners if any
+                    const newConfirm = confirmBtn.cloneNode(true);
+                    confirmBtn.parentNode.replaceChild(newConfirm, confirmBtn);
+                    const newCancel = cancelBtn.cloneNode(true);
+                    cancelBtn.parentNode.replaceChild(newCancel, cancelBtn);
+                };
+
+                document.getElementById('modalConfirm').onclick = () => {
+                    const val = parseInt(input.value);
+                    if (val > 0) {
+                        onConfirm(val);
+                        closeModal();
+                    } else {
+                        this.showNotification('⚠️ Invalid', 'Enter minutes > 0', '⚠️');
+                    }
+                };
+
+                document.getElementById('modalCancel').onclick = closeModal;
+            }
+
+            async startScreenReminder(minutes) {
+                this.screenMinutes = minutes;
+                localStorage.setItem('wellness_screen_minutes', minutes);
+
+                if (window.electronAPI && window.electronAPI.reminders) {
+                    const res = await window.electronAPI.reminders.set({ themeId: 'theme1', type: 'screen', minutes });
+                    this.screenNextTriggerTime = res.nextTrigger;
+                } else {
+                    if (this.screenInterval) clearInterval(this.screenInterval);
+                    this.screenNextTriggerTime = Date.now() + (minutes * 60 * 1000);
+                    this.screenInterval = setInterval(() => {
+                        this.showNotification('👁️ Screen Time Alert', `Time to rest your eyes! Next break in ${this.screenMinutes} minutes.`, '👁️');
+                        this.screenNextTriggerTime = Date.now() + (this.screenMinutes * 60 * 1000);
+                    }, minutes * 60 * 1000);
+                }
+
+                this.updateScreenUI(true);
+            }
+
+            updateScreenUI(isActive) {
+                if (isActive) {
+                    document.getElementById('screenActiveBadge').style.display = 'inline-block';
+                    document.getElementById('screenSection').classList.add('active-reminder');
+                } else {
+                    document.getElementById('screenActiveBadge').style.display = 'none';
+                    document.getElementById('screenSection').classList.remove('active-reminder');
+                }
+                this.updateScreenButtonText(this.screenMinutes);
+                this.updateTimerDisplays();
+            }
+
+            setScreenReminder(minutes) {
+                this.startScreenReminder(minutes);
+                this.showNotification('👁️ Screen Break Set', `Screen break reminder every ${minutes} minutes`, '⏰');
+            }
+
+            getRemainingTime(nextTriggerTime) {
+                if (!nextTriggerTime) return null;
+                const now = Date.now();
+                let remaining = nextTriggerTime - now;
+
+                if (remaining <= 0) {
+                    remaining = 0;
+                }
+
+                const totalSeconds = Math.floor(remaining / 1000);
+                const minutes = Math.floor(totalSeconds / 60);
+                const seconds = totalSeconds % 60;
+
+                return { minutes, seconds, totalSeconds };
+            }
+
+            updateTimerDisplays() {
+                const waterDiv = document.getElementById('waterTimerInfo');
+                const screenDiv = document.getElementById('screenTimerInfo');
+
+                if (this.waterNextTriggerTime) {
+                    const remaining = this.getRemainingTime(this.waterNextTriggerTime);
+                    if (remaining && remaining.totalSeconds > 0) {
+                        waterDiv.innerHTML = `💧 Next water break: ${remaining.minutes}m ${remaining.seconds}s`;
+                    } else {
+                        waterDiv.innerHTML = `💧 Next water break: Now!`;
+                    }
+                } else {
+                    waterDiv.innerHTML = '💧 No active reminder';
+                }
+
+                if (this.screenNextTriggerTime) {
+                    const remaining = this.getRemainingTime(this.screenNextTriggerTime);
+                    if (remaining && remaining.totalSeconds > 0) {
+                        screenDiv.innerHTML = `👁️ Next screen break: ${remaining.minutes}m ${remaining.seconds}s`;
+                    } else {
+                        screenDiv.innerHTML = `👁️ Next screen break: Now!`;
+                    }
+                } else {
+                    screenDiv.innerHTML = '👁️ No active reminder';
+                }
+            }
+
+            startTimerDisplayUpdater() {
+                setInterval(() => this.updateTimerDisplays(), 1000);
+            }
+
+            async getWeather() {
+                const weatherConditions = [
+                    { condition: 'Sunny', temp: 26, icon: '☀️', desc: 'Perfect day for wellness!' },
+                    { condition: 'Partly Cloudy', temp: 22, icon: '⛅', desc: 'Great for outdoor breaks' },
+                    { condition: 'Cloudy', temp: 19, icon: '☁️', desc: 'Cozy indoor vibes' },
+                    { condition: 'Light Rain', temp: 16, icon: '🌧️', desc: 'Stay hydrated!' },
+                    { condition: 'Clear Sky', temp: 24, icon: '🌙', desc: 'Beautiful evening' },
+                    { condition: 'Windy', temp: 18, icon: '💨', desc: 'Take deep breaths' },
+                    { condition: 'Foggy', temp: 14, icon: '🌫️', desc: 'Meditation weather' },
+                    { condition: 'Thunderstorm', temp: 12, icon: '⛈️', desc: 'Stay safe indoors' }
+                ];
+
+                const random = Math.floor(Math.random() * weatherConditions.length);
+                const weather = weatherConditions[random];
+
+                document.getElementById('weatherTemp').innerHTML = `${weather.temp}°C`;
+                document.getElementById('weatherDesc').innerHTML = `${weather.condition} - ${weather.desc}`;
+                document.getElementById('weatherIcon').innerHTML = weather.icon;
+
+                localStorage.setItem('wellness_last_weather', JSON.stringify(weather));
+            }
+
+            startAutoWeatherRefresh() {
+                setInterval(() => this.getWeather(), 30 * 60 * 1000);
+            }
+
+            loadTodos() {
+                const saved = localStorage.getItem('wellness_todos');
+                if (saved) {
+                    try {
+                        return JSON.parse(saved);
+                    } catch (e) {
+                        return [];
+                    }
+                }
+                return [];
+            }
+
+            saveTodos() {
+                localStorage.setItem('wellness_todos', JSON.stringify(this.todos));
+            }
+
+            addTodo() {
+                const textInput = document.getElementById('todoText');
+                const deadlineInput = document.getElementById('todoDeadline');
+                const text = textInput.value.trim();
+                const deadline = deadlineInput.value;
+
+                if (!text) {
+                    this.showNotification('Empty Task', 'Please enter a task description', '⚠️');
+                    return;
+                }
+
+                this.todos.push({
+                    id: Date.now(),
+                    text: text,
+                    deadline: deadline,
+                    completed: false,
+                    createdAt: new Date().toISOString(),
+                    notified: false,
+                    overdueNotified: false
+                });
+
+                this.saveTodos();
+                this.renderTodos();
+                textInput.value = '';
+                deadlineInput.value = '';
+                this.showNotification('Task Added', `"${text.substring(0, 25)}" added to your list`, '✅');
+            }
+
+            toggleTodo(id) {
+                const todo = this.todos.find(t => t.id === id);
+                if (todo) {
+                    todo.completed = !todo.completed;
+                    this.saveTodos();
+                    this.renderTodos();
+                    if (todo.completed) {
+                        this.showNotification('Task Completed', `🎉 "${todo.text.substring(0, 25)}" - Great job!`, '🎉');
+                    }
+                }
+            }
+
+            deleteTodo(id) {
+                const todo = this.todos.find(t => t.id === id);
+                this.todos = this.todos.filter(t => t.id !== id);
+                this.saveTodos();
+                this.renderTodos();
+                if (todo) {
+                    this.showNotification('Task Deleted', `"${todo.text.substring(0, 25)}" removed`, '🗑️');
+                }
+            }
+
+            startDeadlineChecker() {
+                setInterval(() => this.checkDeadlines(), 60000);
+            }
+
+            checkDeadlines() {
+                const now = new Date();
+                this.todos.forEach(todo => {
+                    if (!todo.completed && todo.deadline) {
+                        const deadline = new Date(todo.deadline);
+                        const timeDiff = deadline - now;
+                        const minutesDiff = timeDiff / (1000 * 60);
+
+                        if (minutesDiff <= 60 && minutesDiff > 0 && !todo.notified) {
+                            todo.notified = true;
+                            const hours = Math.floor(minutesDiff / 60);
+                            const mins = Math.floor(minutesDiff % 60);
+                            const timeText = hours > 0 ? `${hours}h ${mins}m` : `${mins} minutes`;
+                            this.showNotification('⏰ Deadline Approaching!', `"${todo.text.substring(0, 25)}" due in ${timeText}`, '⏰');
+                            this.saveTodos();
+                        }
+                        else if (timeDiff < 0 && !todo.completed && !todo.overdueNotified) {
+                            todo.overdueNotified = true;
+                            this.showNotification('⚠️ Overdue Task', `"${todo.text.substring(0, 25)}" has passed its deadline!`, '⚠️');
+                            this.saveTodos();
+                        }
+                    }
+                });
+            }
+
+            formatDeadline(deadlineStr) {
+                if (!deadlineStr) return 'No deadline';
+                const date = new Date(deadlineStr);
+                const now = new Date();
+                const isOverdue = date < now;
+                const month = (date.getMonth() + 1).toString().padStart(2, '0');
+                const day = date.getDate().toString().padStart(2, '0');
+                const hours = date.getHours().toString().padStart(2, '0');
+                const minutes = date.getMinutes().toString().padStart(2, '0');
+                if (isOverdue) {
+                    return `⚠️ ${month}/${day} ${hours}:${minutes}`;
+                }
+                return `${month}/${day} ${hours}:${minutes}`;
+            }
+
+            renderTodos() {
+                const container = document.getElementById('todoList');
+                if (!container) return;
+
+                if (this.todos.length === 0) {
+                    container.innerHTML = '<div class="empty-todo">✨ No tasks yet. Add your first task!</div>';
+                    return;
+                }
+
+                const sorted = [...this.todos].sort((a, b) => {
+                    if (a.completed !== b.completed) return a.completed ? 1 : -1;
+                    if (a.deadline && b.deadline) return new Date(a.deadline) - new Date(b.deadline);
+                    if (a.deadline) return -1;
+                    if (b.deadline) return 1;
+                    return 0;
+                });
+
+                container.innerHTML = '';
+                sorted.forEach(todo => {
+                    const todoDiv = document.createElement('div');
+                    todoDiv.className = 'todo-item';
+                    if (todo.completed) todoDiv.style.opacity = '0.5';
+                    const deadlineDisplay = this.formatDeadline(todo.deadline);
+                    const isOverdue = todo.deadline && new Date(todo.deadline) < new Date() && !todo.completed;
+
+                    todoDiv.innerHTML = `
+                        <input type="checkbox" class="todo-checkbox" ${todo.completed ? 'checked' : ''} data-id="${todo.id}">
+                        <div class="todo-text" style="${todo.completed ? 'text-decoration: line-through;' : ''}">${this.escapeHtml(todo.text)}</div>
+                        <div class="todo-deadline" style="${isOverdue ? 'color: #FF6B6B;' : ''}">📅 ${deadlineDisplay}</div>
+                        <button class="todo-delete" data-id="${todo.id}">✕</button>
+                    `;
+                    container.appendChild(todoDiv);
+                });
+
+                container.querySelectorAll('.todo-checkbox').forEach(cb => {
+                    cb.addEventListener('change', (e) => this.toggleTodo(parseInt(e.target.dataset.id)));
+                });
+                container.querySelectorAll('.todo-delete').forEach(btn => {
+                    btn.addEventListener('click', (e) => this.deleteTodo(parseInt(btn.dataset.id)));
+                });
+            }
+
+            escapeHtml(str) {
+                if (!str) return str;
+                return str.replace(/[&<>]/g, function (m) {
+                    if (m === '&') return '&amp;';
+                    if (m === '<') return '&lt;';
+                    if (m === '>') return '&gt;';
+                    return m;
+                });
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            window.wellnessApp = new WellnessWaveApp();
+        });
+    </script>
+
+</body>
+
+</html>
